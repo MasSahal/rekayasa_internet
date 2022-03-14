@@ -39,3 +39,6 @@ die(var_dump([
     "Mobil A" => $Mobil_A,
     "Mobil B" => $Mobil_B
 ]));
+
+
+//Copyright Sahl - 20210120016
