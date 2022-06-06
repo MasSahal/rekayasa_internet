@@ -13,7 +13,8 @@ include('../model/database.php');
 
 $db = new database();
 $data_barang = $db->data_barang();
-$data_distributor = $db->data_distributor();
+
+// $data_distributor = $db->data_distributor();
 ?>
 
 
@@ -58,7 +59,8 @@ $data_distributor = $db->data_distributor();
                     <tbody>
                         <?php
                         $no = 0;
-                        foreach ($data_barang as $row) {; ?>
+                        foreach ($data_barang as $row) {;
+                            var_dump($row) ?>
                             <tr>
                                 <td><?= $no += 1; ?></td>
                                 <td>
@@ -71,7 +73,7 @@ $data_distributor = $db->data_distributor();
                                 <td><?= $row['nm_barang']; ?></td>
                                 <td class="text-right"><?= $db->rupiah($row['harga']); ?></td>
                                 <td class=" <?= $row['stok'] < 10 ? 'text-danger font-weight-bold' : ''; ?>"><?= $row['stok']; ?></td>
-                                <td><?= $row['distributor']; ?></td>
+                                <td><?= $row['nm_distributor']; ?></td>
                                 <!-- <td><?= $row['ket']; ?></td> -->
                                 <td>
                                     <a name="" id="" class="btn btn-sm btn-info" href="data_barang.php?edit=update&&id=<?= $row['kd_barang']; ?>" role="button">Edit</a>

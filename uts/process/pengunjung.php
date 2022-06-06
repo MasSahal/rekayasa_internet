@@ -33,7 +33,7 @@ if (isset($_GET['aksi'])) {
             $allowed_ext = ['jpg', 'jpeg', 'png'];
             if (!in_array(strtolower(end($tmp)), $allowed_ext)) {
                 echo "<script> alert('Silahkan upload foto! - Ekstensi diperbolehkan JPG, JPEG, PNG')</script>";
-                echo "<script> window.location = '../admin/data-pengunjung.php'</script>";
+                echo "<script> window.location = '../data-pengunjung.php'</script>";
             }
 
             move_uploaded_file($file_tmp, '../assets/images/pengunjung/' . $foto_baru);
@@ -44,10 +44,10 @@ if (isset($_GET['aksi'])) {
 
         if ($add) {
             echo "<script> alert('Data Pengunjung berhasil disimpan!')</script>";
-            echo "<script> window.location = '../admin/data-pengunjung.php'</script>";
+            echo "<script> window.location = '../data-pengunjung.php'</script>";
         } else {
             echo "<script> alert('Data Pengunjung gagal disimpan!')</script>";
-            // echo "<script> window.location = '../admin/data-pengunjung.php'</script>";
+            // echo "<script> window.location = '../data-pengunjung.php'</script>";
         }
     } elseif ($aksi == "update") {
 
@@ -73,7 +73,7 @@ if (isset($_GET['aksi'])) {
             $allowed_ext = ['jpg', 'jpeg', 'png'];
             if (!in_array(strtolower(end($tmp)), $allowed_ext)) {
                 echo "<script> alert('Silahkan upload foto! - Ekstensi diperbolehkan JPG, JPEG, PNG')</script>";
-                echo "<script> window.location = '../admin/data-pengunjung.php'</script>";
+                echo "<script> window.location = '../data-pengunjung.php'</script>";
             }
 
             $data = $db->getPengunjung($pengunjung_id);
@@ -92,10 +92,10 @@ if (isset($_GET['aksi'])) {
 
         if ($add) {
             echo "<script> alert('Data Pengunjung berhasil disimpan!')</script>";
-            echo "<script> window.location = '../admin/data-pengunjung.php'</script>";
+            echo "<script> window.location = '../data-pengunjung.php'</script>";
         } else {
             echo "<script> alert('Data Pengunjung gagal disimpan!')</script>";
-            echo "<script> window.location = '../admin/data-pengunjung.php'</script>";
+            echo "<script> window.location = '../data-pengunjung.php'</script>";
         }
     } elseif ($aksi == "delete") {
         if (isset($_GET['pengunjung_id'])) {
@@ -108,7 +108,7 @@ if (isset($_GET['aksi'])) {
                     $unlink = unlink('../assets/images/pengunjung/' . $data['foto']);
                     if (!$unlink) {
                         echo "<script> alert('Foto Pengunjung gagal dihapus!')</script>";
-                        echo "<script> window.location = '../admin/data-pengunjung.php'</script>";
+                        echo "<script> window.location = '../data-pengunjung.php'</script>";
                     }
                 }
             }
@@ -116,13 +116,13 @@ if (isset($_GET['aksi'])) {
             $del = $db->deletePengunjung($id);
             if ($del) {
                 echo "<script> alert('Data berhasil dihapus!')</script>";
-                echo "<script> window.location = '../admin/data-pengunjung.php'</script>";
+                echo "<script> window.location = '../data-pengunjung.php'</script>";
             } else {
                 echo "<script> alert('Data gagal dihapus!')</script>";
-                echo "<script> window.location = '../admin/data-pengunjung.php'</script>";
+                echo "<script> window.location = '../data-pengunjung.php'</script>";
             }
         } else {
-            echo "<script> window.location = '../admin/data-pengunjung.php'</script>";
+            echo "<script> window.location = '../data-pengunjung.php'</script>";
         }
     }
 }

@@ -106,7 +106,9 @@ class database
     # READ ALL DATA
     function data_barang()
     {
-        $data_barang = mysqli_query($this->koneksi, "SELECT * FROM tbl_barang");
+        $query = "SELECT * FROM tbl_barang JOIN tbl_distributor ON tbl_barang.distributor=tbl_distributor.kd_distributor";
+        // $data_barang = mysqli_query($this->koneksi, "SELECT * FROM tbl_barang");
+        $data_barang = mysqli_query($this->koneksi, $query);
 
         // die(var_dump($data_barang));
         while ($row = mysqli_fetch_array($data_barang)) {
@@ -157,6 +159,35 @@ class database
             return false;
         }
     }
+
+
+    // ======  ROLE BARANG MASUK ======
+
+    # CREATE
+    function input_barang_masuk($no_ref, $kd_barang, $kd_distributor, $jumlah, $tgl_masuk, $penerima, $ket, $total)
+    {
+        // query sql insert ke database
+        $query = "INSERT INTO tbl_barang_masuk VALUES('$no_ref','$kd_barang','$kd_distributor', '$jumlah', '$tgl_masuk', '$penerima', '$ket', '$total')";
+
+        // eksekusi query
+        $insert = mysqli_query($this->koneksi, $query);
+        if ($insert) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    # READ ALL DATA
+    function data_barang_masuk()
+    {
+        $query = "SELECT * FROM tbl_barang_masuk JOIN tbl_barang ON tbl_barang_masuk.kd_barang=tbl_barang.kd_barang JOIN tbl_distributor ON tbl_barang.distributor=tbl_distributor.kd_distributor";
+        $result = mysqli_query($this->koneksi, $query);
+
+        return $result;
+    }
+
+
 
 
     # CUSTOM FUNCTION

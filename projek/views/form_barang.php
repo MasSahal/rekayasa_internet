@@ -88,7 +88,7 @@ function tambah_data()
                 <select class="form-control" name="distributor" id="distributor">
                     <option selected disabled>-- Pilih -- </option>
                     <?php foreach ($data_distributor as $row) :; ?>
-                        <option value="<?= $row['nm_distributor']; ?>"><?= $row['nm_distributor']; ?></option>
+                        <option value="<?= $row['kd_distributor']; ?>"><?= $row['nm_distributor']; ?></option>
                     <?php endforeach;; ?>
                 </select>
             </div>

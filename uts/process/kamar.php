@@ -39,23 +39,23 @@ if (isset($_GET['aksi'])) {
 
                 if ($add) {
                     echo "<script> alert('Data berhasil disimpan!')</script>";
-                    echo "<script> window.location = '../admin/data-kamar.php'</script>";
+                    echo "<script> window.location = '../data-kamar.php'</script>";
                 } else {
                     echo "<script> alert('Data gagal disimpan!')</script>";
-                    echo "<script> window.location = '../admin/data-kamar.php'</script>";
+                    echo "<script> window.location = '../data-kamar.php'</script>";
                 }
             } else {
                 // tampil pesan gaagl
                 echo "<script> alert('Foto gagal diupload!')</script>";
 
                 // redirect
-                // echo "<script> window.location = '../admin/data-kamar.php'</script>";
+                // echo "<script> window.location = '../data-kamar.php'</script>";
             }
         } else {
             echo "<script> alert('Silahkan upload foto! - Ekstensi diperbolehkan JPG, JPEG, PNG')</script>";
 
             // redirect
-            echo "<script> window.location = '../admin/data-kamar.php'</script>";
+            echo "<script> window.location = '../data-kamar.php'</script>";
         }
     } elseif ($aksi == "update") {
 
@@ -78,7 +78,13 @@ if (isset($_GET['aksi'])) {
             $allowed_ext = ['jpg', 'jpeg', 'png'];
             if (!in_array(strtolower(end($tmp)), $allowed_ext)) {
                 echo "<script> alert('Silahkan upload foto! - Ekstensi diperbolehkan JPG, JPEG, PNG')</script>";
-                echo "<script> window.location = '../admin/data-kamar.php'</script>";
+                echo "<script> window.location = '../data-kamar.php'</script>";
+            }
+
+            $data = $db->getKamar($kamar_id);
+
+            if (file_exists('../assets/images/kamar/' . $data['foto_kamar'])) {
+                unlink('../assets/images/kamar/' . $data['foto_kamar']);
             }
 
             move_uploaded_file($file_tmp, '../assets/images/kamar/' . $foto_baru);
@@ -103,21 +109,28 @@ if (isset($_GET['aksi'])) {
 
         if ($update) {
             echo "<script> alert('Data berhasil diupdate!')</script>";
-            echo "<script> window.location = '../admin/data-kamar.php'</script>";
+            echo "<script> window.location = '../data-kamar.php'</script>";
         } else {
             echo "<script> alert('Data gagal diupdate!')</script>";
-            echo "<script> window.location = '../admin/data-kamar.php'</script>";
+            echo "<script> window.location = '../data-kamar.php'</script>";
         }
     } elseif ($aksi == "delete") {
         if (isset($_GET['kamar_id'])) {
             $kamar_id = $_GET['kamar_id'];
+
+            $data = $db->getKamar($kamar_id);
+
+            if (file_exists('../assets/images/kamar/' . $data['foto_kamar'])) {
+                unlink('../assets/images/kamar/' . $data['foto_kamar']);
+            }
+
             $delete = $db->delete_kamar($kamar_id);
             if ($delete) {
                 echo "<script> alert('Data berhasil dihapus!')</script>";
-                echo "<script> window.location = '../admin/data-kamar.php'</script>";
+                echo "<script> window.location = '../data-kamar.php'</script>";
             } else {
                 echo "<script> alert('Data gagal dihapus!')</script>";
-                echo "<script> window.location = '../admin/data-kamar.php'</script>";
+                echo "<script> window.location = '../data-kamar.php'</script>";
             }
         }
     } elseif ($aksi == "detail") {

@@ -99,8 +99,10 @@ class database
 
     // ROLE RESERVASI
     // Create
-    public function insertReservasi($reservasi, $pengunjung_id, $kamar_id,)
+    public function insertReservasi($reservasi, $pengunjung_id, $kamar_id, $check_in, $check_out, $total_biaya)
     {
+        $query = "INSERT INTO data_reservasi (reservasi_id, pengunjung_id, kamar_id, check_in, check_out, total_biaya) VALUES ('$reservasi','$pengunjung_id','$kamar_id','$check_in','$check_out','$total_biaya')";
+        return mysqli_query($this->koneksi, $query);
     }
 
     public function getReservasi($id = false)
@@ -114,10 +116,17 @@ class database
         }
     }
 
+    public function updateReservasi($id_reservasi, $pengunjung_id, $kamar_id, $check_in, $check_out, $total_biaya)
+    {
+        $query = "UPDATE data_reservasi SET pengunjung_id='$pengunjung_id', kamar_id='$kamar_id', check_in='$check_in', check_out='$check_out', total_biaya='$total_biaya' WHERE reservasi_id='$id_reservasi'";
+        return mysqli_query($this->koneksi, $query);
+    }
+
     public function deleteReservasi($id = false)
     {
         return mysqli_query($this->koneksi, "DELETE FROM data_reservasi WHERE reservasi_id='$id'");
     }
+
 
 
     public function harga($price)

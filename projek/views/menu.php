@@ -15,6 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="data_distributor.php">Data Distributor</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="data_barang_masuk.php">Barang Masuk</a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Penjualan Barang
