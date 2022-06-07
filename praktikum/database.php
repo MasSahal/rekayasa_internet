@@ -4,8 +4,8 @@ class Database
 
     var $host = "localhost";
     var $user = "root";
-    var $pass = "";
-    var $db = "toko";
+    var $pass = "root";
+    var $db = "toko_2";
     var $koneksi = "";
 
     function __construct()
@@ -84,22 +84,18 @@ class Database
         $dok = mysqli_query($this->koneksi, "select * from tbl_distributor where kd_distributor = '$kd_distributor' ");
         $data_file = $dok->fetch_array();
 
-        $query = mysqli_query($this->koneksi, "delete from tbl_distributor where kd_distributor = '$kd_distributor'");
+        return mysqli_query($this->koneksi, "delete from tbl_distributor where kd_distributor = '$kd_distributor'");
     }
 
     //  Data Barang Masuk
 
     function data_barang_masuk()
     {
-        $data_barang_masuk = mysqli_query($this->koneksi, "select * from brg_masuk.*, tbl_barang.*, tbl_distributor.* fro brg_masuk JOIN tbl_barang ON brg_masuk.kd_barang = tbl_barang.kd_barang JOIN tbl_distributor ON brg_masuk.kd_distributor = tbl_distributor.kd_distributor");
-        while ($row = mysqli_fetch_array($data_barang_masuk)) {
-            $hasil_barang_masuk[] = $row;
-        }
-        return $hasil_barang_masuk;
+        return mysqli_query($this->koneksi, "select * from tbl_barang_masuk JOIN tbl_barang ON tbl_barang_masuk.kd_barang = tbl_barang.kd_barang JOIN tbl_distributor ON tbl_barang_masuk.kd_distributor = tbl_distributor.kd_distributor");
     }
 
     function input_barang_masuk($no_ref, $kd_barang, $kd_distributor, $jumlah, $tgl_masuk, $penerima, $ket, $total)
     {
-        mysqli_query($this->koneksi, "insert into brg_masuk values ('$no_ref', '$kd_barang', '$kd_distributor', '$jumlah', '$tgl_masuk', '$penerima', '$ket', '$total')");
+        return mysqli_query($this->koneksi, "insert into tbl_barang_masuk values ('$no_ref', '$kd_barang', '$kd_distributor', '$jumlah', '$tgl_masuk', '$penerima', '$ket', '$total')");
     }
 }

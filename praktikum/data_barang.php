@@ -41,9 +41,9 @@ $data_distributor = $db->data_distributor();
             <h3 style="text-align: center; background-color: lightblue; border-radius: 10px; color: white; padding: 10px;">
                 Data Barang</h3>
             <div class="table-responsive mt-2">
-                <table class="table table-bordered table-hover table-sm">
-                    <thead class="text-dark bg-light">
-                        <tr class="border border-dark text-center">
+                <table class="table table-striped">
+                    <thead class="thead-light">
+                        <tr>
                             <th>No</th>
                             <th>Foto</th>
                             <th>Kode Barang</th>
@@ -61,7 +61,7 @@ $data_distributor = $db->data_distributor();
                         $no = 1;
                         foreach ($data_barang as $row) {
                         ?>
-                            <tr class="border border-dark text-center">
+                            <tr>
                                 <td><?php echo $no++; ?></td>
                                 <td align="center">
                                     <img width="50" height="50" src="dokumen/<?php echo $row['foto'] ?>">
@@ -73,9 +73,9 @@ $data_distributor = $db->data_distributor();
                                 <td><?php echo $row['nm_distributor'] ?></td>
                                 <td><?php echo $row['nohp'] ?></td>
                                 <td><?php echo $row['ket'] ?></td>
-                                <td align="center">
-                                    <a class="btn btn-outline-success text-black" href="<?php echo "data_barang.php?&edit=update&&id=$row[kd_barang]"; ?>">Edit</a>
-                                    <a class="btn btn-outline-success text-black" href="<?php echo "proses_barang.php?aksi=delete&&id=$row[kd_barang]"; ?>" onclick="javascript: return confirm('Apakah yakin data dihapus')">Delete</a>
+                                <td align="center" width="150px">
+                                    <a class="btn btn-sm btn-warning" href="<?php echo "data_barang.php?&edit=update&&id=$row[kd_barang]"; ?>">Edit</a>
+                                    <a class="btn btn-sm btn-danger" href="<?php echo "proses_barang.php?aksi=delete&&id=$row[kd_barang]"; ?>" onclick="javascript: return confirm('Apakah yakin data dihapus')">Delete</a>
                                 </td>
                             </tr>
                         <?php

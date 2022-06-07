@@ -11,7 +11,7 @@ $halaman_utama = new dashboard;
 
 include "database.php";
 $db = new Database();
-$barang_masuk = $db->data_barang_masuk();
+$data_barang_masuk = $db->data_barang_masuk();
 
 $data_distributor = $db->data_distributor();
 
@@ -41,17 +41,15 @@ $data_distributor = $db->data_distributor();
             <h3 style="text-align: center; background-color: lightblue; border-radius: 10px; color: white; padding: 10px;">
                 Data Barang Masuk</h3>
             <div class="table-responsive mt-2">
-                <table class="table table-bordered table-hover table-sm">
-                    <thead class="text-dark bg-light">
-                        <tr class="border border-dark text-center">
+                <table class="table table-striped">
+                    <thead class="thead-light">
+                        <tr>
                             <th>No Ref</th>
-                            <th>Tanggal Masuk</th>
+                            <th width="150px">Tanggal Masuk</th>
                             <th>Nama Barang</th>
                             <th>Nama Distributor</th>
-                            <th>Harga</th>
-                            <th>Jumlah</th>
-                            <th>Total</th>
                             <th>Penerima</th>
+                            <th width="200px">Keterangan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -60,20 +58,21 @@ $data_distributor = $db->data_distributor();
                         $no = 1;
                         foreach ($data_barang_masuk as $row) {
                         ?>
-                            <tr class="border border-dark text-center">
-                                <td><?php echo $no++; ?></td>
+                            <tr>
                                 <td><?php echo $row['no_ref'] ?></td>
-                                <td><?php echo $row['tgl_masuk'] ?></td>
+                                <td><?php echo date('D, M Y', strtotime($row['tgl_masuk'])) ?></td>
                                 <td><?php echo $row['nm_barang'] ?></td>
                                 <td><?php echo $row['nm_distributor'] ?></td>
-                                <td><?php echo $row['harga'] ?></td>
-                                <td><?php echo $row['jumlah'] ?></td>
-                                <td><?php echo $row['total'] ?></td>
                                 <td><?php echo $row['penerima'] ?></td>
-                                <td><?php echo $row['ket'] ?></td>
-                                <td align="center">
-                                    <a class="btn btn-outline-success text-black" href="<?php echo "data_barang_masuk.php?&edit=update&&id=$row[no_ref]"; ?>">Edit</a>
-                                    <a class="btn btn-outline-success text-black" href="<?php echo "proses_barang_masuk.php?aksi=delete&&id=$row[no_ref]"; ?>" onclick="javascript: return confirm('Apakah yakin data dihapus')">Delete</a>
+                                <td>
+                                    <span>Harga : Rp<?php echo number_format($row['harga']) ?></span><br>
+                                    <span>Jumlah : <?php echo $row['jumlah'] ?> item</li></span><br>
+                                    <span>Total : Rp<?php echo number_format($row['total']) ?></sapn>
+                                        <p>Ket : <?php echo $row['ket'] ?></p>
+                                </td>
+                                <td align="center" width="150px">
+                                    <a class="btn btn-sm btn-warning" href="data_barang_masuk.php?&edit=update&&id=<?= $row['no_ref'] ?>">Edit</a>
+                                    <a class="btn btn-sm btn-danger " href="proses_barang_masuk.php?aksi=delete&&id=<?= $row['no_ref'] ?>" onclick="return confirm('Apakah yakin data dihapus')">Delete</a>
                                 </td>
                             </tr>
                         <?php
