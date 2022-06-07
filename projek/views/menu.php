@@ -15,12 +15,9 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="data_distributor.php">Data Distributor</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="data_barang_masuk.php">Barang Masuk</a>
-                </li>
-                drop
+
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Data Histori</a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="data_barang_masuk.php">Barang Masuk</a>
                         <a class="dropdown-item" href="data_barang_keluar.php">Barang Keluar</a>

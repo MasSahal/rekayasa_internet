@@ -12,7 +12,7 @@ $halaman_utama = new dashboard;
 include('../model/database.php');
 
 $db = new database();
-$data_barang_masuk = $db->data_barang_masuk();
+$data_barang_keluar = $db->data_barang_keluar();
 
 // $data_distributor = $db->data_distributor();
 ?>
@@ -37,51 +37,49 @@ $data_barang_masuk = $db->data_barang_masuk();
 <body>
 
     <div class="row" style="margin: 20px;">
-        <?php include('form_barang_masuk.php'); ?>
+        <?php include('form_barang_keluar.php'); ?>
 
         <div class="col-8" style="border: 1px solid lightgray; border-radius: 10px; padding: 10px;">
-            <h3 style="text-align: center; background-color: #5D8AA8; border-radius: 10px; color: white; padding: 10px;">Data Barang Masuk</h3>
+            <h3 style="text-align: center; background-color: #5D8AA8; border-radius: 10px; color: white; padding: 10px;">Data Barang Keluar</h3>
             <div class="table-responsive">
                 <table class="table table-stripped table-hover">
                     <thead class="thead-light">
                         <tr>
                             <th scope="col">No</th>
                             <th scope="col">No Ref</th>
-                            <th scope="col">Tanggal Masuk</th>
-                            <th scope="col">Produk</th>
-                            <th scope="col">Distributor</th>
-                            <th scope="col">Harga</th>
-                            <th scope="col">Jumlah Beli</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Penerima</th>
+                            <th scope="col">Tanggal Keluar</th>
+                            <th scope="col">Nama Barang</th>
+                            <th scope="col">Harga Barang</th>
+                            <th scope="col">Jumlah Keluar</th>
+                            <th scope="col">Diskon</th>
+                            <th scope="col">Total Biaya</th>
+                            <th scope="col">Petugas</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
                         $no = 0;
-                        if ($data_barang_masuk) :
-                            foreach ($data_barang_masuk as $row) {;
-                                #var_dump($row) 
+                        foreach ($data_barang_keluar as $row) {;
+                            #var_dump($row) 
                         ?>
-                                <tr>
-                                    <td><?= $no += 1; ?></td>
-                                    <td><?= $row['no_ref']; ?></td>
-                                    <td><?= $row['tgl_masuk']; ?></td>
-                                    <td><?= $row['nm_barang']; ?></td>
-                                    <td><?= $row['nm_distributor']; ?></td>
-                                    <td class="text-right"><?= $db->rupiah($row['harga']); ?></td>
-                                    <td><?= $row['jumlah']; ?></td>
-                                    <td class="text-right"><?= $db->rupiah($row['total']); ?></td>
-                                    <td><?= $row['penerima']; ?></td>
-                                    <td>
-                                        <a name="" id="" class="btn btn-sm btn-info" href="data_barang.php?edit=update&&id=<?= $row['kd_barang']; ?>" role="button">Edit</a>
-                                        <a name="" id="" class="btn btn-sm btn-danger" href="../process/proces_barang.php?aksi=delete&&id=<?= $row['kd_barang']; ?>" onclick="return confirm('Yakin ingin menghapus <?= $row['nm_barang']; ?> ?')" role="button"><i class="fa fa-trash" aria-hidden="true"></i> Hapus</a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td><?= $no += 1; ?></td>
+                                <td><?= $row['no_ref']; ?></td>
+                                <td><?= $row['tanggal_keluar']; ?></td>
+                                <td><?= $row['nm_barang']; ?></td>
+                                <td><?= $db->rupiah($row['harga']); ?></td>
+                                <td><?= $row['jumlah_keluar']; ?></td>
+                                <td><?= $row['diskon']; ?>%</td>
+                                <td class="text-right"><?= $db->rupiah($row['total_biaya']); ?></td>
+                                <td><?= $row['petugas']; ?></td>
+                                <td>
+                                    <a name="" id="" class="btn btn-sm btn-info" href="data_barang_keluar.php?edit=update&&id=<?= $row['no_ref']; ?>" role="button">Edit</a>
+                                    <a name="" id="" class="btn btn-sm btn-danger" href="../process/proces_barang_keluar.php?aksi=delete&&id=<?= $row['no_ref']; ?>" onclick="return confirm('Yakin ingin menghapus <?= $row['nm_barang']; ?> ?')" role="button"><i class="fa fa-trash" aria-hidden="true"></i> Hapus</a>
+                                </td>
+                            </tr>
                         <?php
-                            };
-                        endif; ?>
+                        }; ?>
                     </tbody>
                 </table>
             </div>

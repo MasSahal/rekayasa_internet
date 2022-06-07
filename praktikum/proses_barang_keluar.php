@@ -17,15 +17,6 @@ if ($aksi == "tambah") {
     // total byar setelah diskon
     $total_setelah_diskon = $total_harga - $harga_diskon;
 
-    // $data = array(
-    //     $_POST['no_ref'],
-    //     $_POST['kd_barang'],
-    //     $_POST['tanggal_keluar'],
-    //     $_POST['jumlah'],
-    //     $total_setelah_diskon,
-    //     $harga_diskon,
-    //     $_POST['penerima']
-    // );
     $add = $db->input_barang_keluar(
         $_POST['no_ref'],
         $_POST['kd_barang'],

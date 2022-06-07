@@ -63,7 +63,7 @@ function tambah_data()
 ?>
     <div class="col-4" style="border: 1px solid lightgray; border-radius: 10px; padding: 10px;">
         <form action="../process/proces_barang_masuk.php?aksi=tambah" method="post">
-            <h3 style="text-align: center; background-color: #5D8AA8; border-radius: 10px; color: white; padding: 10px;">Input Barang</h3>
+            <h3 style="text-align: center; background-color: #5D8AA8; border-radius: 10px; color: white; padding: 10px;">Input Barang Masuk</h3>
             <div class="mb-3">
                 <label class="form-label">No Ref</label>
                 <input type="text" name="no_ref" class="form-control" value="<?= "ID" . time(); ?>" readonly>

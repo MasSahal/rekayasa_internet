@@ -60,7 +60,7 @@ $data_barang = $db->data_barang();
                         <?php
                         $no = 0;
                         foreach ($data_barang as $row) {;
-                            var_dump($row) ?>
+                        ?>
                             <tr>
                                 <td><?= $no += 1; ?></td>
                                 <td>

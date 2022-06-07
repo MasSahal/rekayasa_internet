@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 06, 2022 at 02:44 AM
+-- Generation Time: Jun 07, 2022 at 03:33 PM
 -- Server version: 5.7.33
 -- PHP Version: 8.0.11
 
@@ -61,9 +61,32 @@ CREATE TABLE `tbl_barang` (
 --
 
 INSERT INTO `tbl_barang` (`kd_barang`, `nm_barang`, `harga`, `stok`, `distributor`, `ket`, `foto`) VALUES
-('KD3789', 'Bawang Dayak', 107000, 12, 'DD1231', 'ready', '8096-kubo-main-0-1aef0bb9217c95ca23f0470e8571b9f9.jpg'),
 ('KD4755', 'Gula Pasir murah', 10000, 3, 'DD9549', 'gula murah', '4603-image_2022-05-16_101828238.png'),
-('KD7693', 'Royco Sapi 10gr', 10000, 2, 'DD7563', 'redy', '6696-image_2022-06-06_082240950.png');
+('KD7693', 'Gula Pasir mahal', 100000, 30, 'DD9549', 'gula mahal', '4603-image_2022-05-16_101828238.png'),
+('KD8489', 'Kecap', 4000, 100, 'DD9549', 'ok', '5902-image_2022-06-07_223010024.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_barang_keluar`
+--
+
+CREATE TABLE `tbl_barang_keluar` (
+  `no_ref` varchar(30) NOT NULL,
+  `kd_barang` varchar(20) NOT NULL,
+  `jumlah_keluar` int(10) NOT NULL,
+  `total_biaya` double NOT NULL,
+  `tanggal_keluar` date NOT NULL,
+  `petugas` varchar(100) NOT NULL,
+  `diskon` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tbl_barang_keluar`
+--
+
+INSERT INTO `tbl_barang_keluar` (`no_ref`, `kd_barang`, `jumlah_keluar`, `total_biaya`, `tanggal_keluar`, `petugas`, `diskon`) VALUES
+('REFO1654615942', 'KD8489', 100, 200000, '2022-06-01', 'Sahal', 50);
 
 -- --------------------------------------------------------
 
@@ -88,7 +111,8 @@ CREATE TABLE `tbl_barang_masuk` (
 
 INSERT INTO `tbl_barang_masuk` (`no_ref`, `kd_barang`, `kd_distributor`, `jumlah`, `tgl_masuk`, `penerima`, `ket`, `total`) VALUES
 ('ID1654482622', 'KD3789', 'DD2332', 10, '2022-06-14', '10', '100', 1070000),
-('ID1654482861', 'KD4755', 'DD2332', 100, '2022-06-02', 'sahal', 'ok', 1000000);
+('ID1654482861', 'KD4755', 'DD2332', 100, '2022-06-02', 'sahal', 'ok', 1000000),
+('ID1654615295', 'KD4755', 'DD2332', 100, '2022-06-01', 'sahal', 'ok', 1000000);
 
 -- --------------------------------------------------------
 
@@ -131,6 +155,12 @@ ALTER TABLE `anggota`
 --
 ALTER TABLE `tbl_barang`
   ADD PRIMARY KEY (`kd_barang`);
+
+--
+-- Indexes for table `tbl_barang_keluar`
+--
+ALTER TABLE `tbl_barang_keluar`
+  ADD PRIMARY KEY (`no_ref`);
 
 --
 -- Indexes for table `tbl_barang_masuk`

@@ -187,7 +187,32 @@ class database
         return $result;
     }
 
+    function data_barang_keluar()
+    {
+        return mysqli_query($this->koneksi, "select * from tbl_barang_keluar JOIN tbl_barang ON tbl_barang_keluar.kd_barang = tbl_barang.kd_barang");
+    }
 
+    function input_barang_keluar($no_ref, $kd_barang, $jumlah, $total, $tanggal_keluar, $petugas, $diskon)
+    {
+        return mysqli_query($this->koneksi, "insert into tbl_barang_keluar values ('$no_ref', '$kd_barang', '$jumlah', '$total', '$tanggal_keluar', '$petugas', '$diskon')");
+    }
+
+    function delete_barang_keluar($no_ref)
+    {
+        return mysqli_query($this->koneksi, "delete from tbl_barang_keluar where no_ref = '$no_ref'");
+    }
+
+    public function tampil_update_barang_keluar($no_ref)
+    {
+        $query = mysqli_query($this->koneksi, "select * from tbl_barang_keluar JOIN tbl_barang ON tbl_barang_keluar.kd_barang = tbl_barang.kd_barang where no_ref = '$no_ref' ");
+
+        return mysqli_fetch_assoc($query);
+    }
+
+    public function update_barang_keluar($no_ref, $kd_barang, $jumlah, $total, $tanggal_keluar, $petugas, $diskon)
+    {
+        return mysqli_query($this->koneksi, "update tbl_barang_keluar set kd_barang = '$kd_barang', jumlah_keluar = '$jumlah', total_biaya = '$total', tanggal_keluar = '$tanggal_keluar', petugas = '$petugas', diskon = '$diskon' where no_ref = '$no_ref'");
+    }
 
 
     # CUSTOM FUNCTION
