@@ -18,14 +18,13 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="data_barang_masuk.php">Barang Masuk</a>
                 </li>
+                drop
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Penjualan Barang
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" href="#">Barang Masuk</a></li>
-                        <li><a class="dropdown-item" href="#">Barang Keluar</a></li>
-                    </ul>
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="data_barang_masuk.php">Barang Masuk</a>
+                        <a class="dropdown-item" href="data_barang_keluar.php">Barang Keluar</a>
+                    </div>
                 </li>
             </ul>
             <form class="d-flex mb-2 mb-lg-0">
@@ -35,3 +34,20 @@
         </div>
     </div>
 </nav>
+
+
+<!-- Tab panes -->
+<div class="tab-content">
+    <div class="tab-pane fade show active" id="tab1Id" role="tabpanel"></div>
+    <div class="tab-pane fade" id="tab2Id" role="tabpanel"></div>
+    <div class="tab-pane fade" id="tab3Id" role="tabpanel"></div>
+    <div class="tab-pane fade" id="tab4Id" role="tabpanel"></div>
+    <div class="tab-pane fade" id="tab5Id" role="tabpanel"></div>
+</div>
+
+<script>
+    $('#navId a').click(e => {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+</script>

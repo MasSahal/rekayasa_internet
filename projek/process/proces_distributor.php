@@ -74,3 +74,10 @@ if ($aksi == "tambah") {
             </div>
         `;
 };
+
+
+$harga = 10_000;
+$diskon = $_POST['diskon'];
+
+$harga_diskon = $diskon / 100 * $harga; #1000
+$jumlah_bayar = $harga - $harga_diskon; #9000
