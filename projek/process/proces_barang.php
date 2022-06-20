@@ -20,7 +20,7 @@ if ($aksi == "tambah") {
 
     $foto_baru = $angka_acak . '-' . $foto;
 
-    $folder = "../dokumen/";
+    $folder = "../views/administrator/dokumen/";
 
     $up_img = move_uploaded_file($file_tmp, $folder . $foto_baru);
 
@@ -41,16 +41,16 @@ if ($aksi == "tambah") {
             echo "<script> alert('Data berhasil disimpan!')</script>";
 
             // redirect jika berhasil
-            echo "<script> window.location = '../views/data_barang.php'</script>";
+            echo "<script> window.location = '../views/administrator/data_barang.php'</script>";
         } else {
             echo '<div class="alert alert-danger" role="alert">
-                <strong>Data gagal melakukan proses simpan! </strong><a href=../views/data_barang.php>Klik Disini!</a>
+                <strong>Data gagal melakukan proses simpan! </strong><a href=../views/administrator/data_barang.php>Klik Disini!</a>
             </div>';
         }
     } else {
         echo `  
             <div class="alert alert-danger" role="alert">
-                <strong>Data foto gagal disimpan! </strong><a href=../views/>data_barang.php>Klik Disini!</a>
+                <strong>Data foto gagal disimpan! </strong><a href=../views/administrator/>data_barang.php>Klik Disini!</a>
             </div>
         `;
     }
@@ -74,15 +74,15 @@ if ($aksi == "tambah") {
             echo "<script> alert('Data berhasil disimpan!')</script>";
 
             // redirect jika berhasil
-            echo "<script> window.location = '../views/data_barang.php'</script>";
+            echo "<script> window.location = '../views/administrator/data_barang.php'</script>";
         } else {
             echo '<div class="alert alert-danger" role="alert">
-                <strong>Data gagal melakukan proses update! </strong><a href=../views/data_barang.php>Klik Disini!</a>
+                <strong>Data gagal melakukan proses update! </strong><a href=../views/administrator/data_barang.php>Klik Disini!</a>
             </div>';
         }
     } else {
         echo '<div class="alert alert-danger" role="alert">
-                <strong>Tidak ada data yang diupdate! </strong><a href=../views/data_barang.php>Klik Disini!</a>
+                <strong>Tidak ada data yang diupdate! </strong><a href=../views/administrator/data_barang.php>Klik Disini!</a>
             </div>';
     }
 } else if ($aksi == "delete") {
@@ -92,19 +92,19 @@ if ($aksi == "tambah") {
         $del = $db->delete_barang($kd_barang);
         if ($del) {
             echo "<script> alert('Data berhasil dihapus!')</script>";
-            echo "<script> window.location = '../views/data_barang.php'</script>";
+            echo "<script> window.location = '../views/administrator/data_barang.php'</script>";
         } else {
             echo "<script> alert('Data gagal dihapus!')</script>";
-            echo "<script> window.location = '../views/data_barang.php'</script>";
+            echo "<script> window.location = '../views/administrator/data_barang.php'</script>";
         }
     } else {
         echo "<script> alert('Data tidak ditemukan!')</script>";
-        echo "<script> window.location = '../views/data_barang.php'</script>";
+        echo "<script> window.location = '../views/administrator/data_barang.php'</script>";
     }
 } else {
     echo `  
             <div class="alert alert-danger" role="alert">
-                <strong>Data gagal disimpan! </strong><a href=../views/>data_barang.php>Klik Disini!</a>
+                <strong>Data gagal disimpan! </strong><a href=../views/administrator/>data_barang.php>Klik Disini!</a>
             </div>
         `;
 };

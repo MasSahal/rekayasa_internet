@@ -104,10 +104,15 @@ class database
     }
 
     # READ ALL DATA
-    function data_barang()
+    function data_barang($cari = false)
     {
-        $query = "SELECT * FROM tbl_barang JOIN tbl_distributor ON tbl_barang.distributor=tbl_distributor.kd_distributor";
-        // $data_barang = mysqli_query($this->koneksi, "SELECT * FROM tbl_barang");
+        if ($cari) {
+            $cari = $_POST['cari'];
+            $query = "SELECT * FROM tbl_barang JOIN tbl_distributor ON tbl_barang.distributor=tbl_distributor.kd_distributor WHERE tbl_barang.kd_barang LIKE '%" . $cari . "%' OR tbl_barang.nm_barang LIKE '%" . $cari . "%'";
+        } else {
+            $query = "SELECT * FROM tbl_barang JOIN tbl_distributor ON tbl_barang.distributor=tbl_distributor.kd_distributor";
+        }
+
         $data_barang = mysqli_query($this->koneksi, $query);
 
         // die(var_dump($data_barang));
@@ -147,8 +152,8 @@ class database
     {
         $data = mysqli_query($this->koneksi, "SELECT * FROM tbl_barang WHERE kd_barang='$kd_barang'")->fetch_array();
         // die(var_dump($data));
-        if (file_exists("../dokumen/" . $data['foto'])) {
-            unlink("../dokumen/" . $data['foto']);
+        if (file_exists("../views/administrator/dokumen/" . $data['foto'])) {
+            unlink("../views/administrator/dokumen/" . $data['foto']);
         }
 
         $query = "DELETE FROM tbl_barang WHERE kd_barang='$kd_barang'";
