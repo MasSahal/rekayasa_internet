@@ -38,13 +38,14 @@ class database
     }
 
     # READ ALL DATA
-    function data_distributor()
+    function data_distributor($cari = false)
     {
-        $data_distributor = mysqli_query($this->koneksi, "SELECT * FROM tbl_distributor");
-        while ($row = mysqli_fetch_array($data_distributor)) {
-            $hasil[] = $row;
+        if ($cari) {
+            $query = "SELECT * FROM tbl_distributor WHERE kd_distributor LIKE '%$cari%' OR nm_distributor LIKE '%$cari%' OR pemilik LIKE '%$cari%' OR nohp LIKE '%$cari%' OR tipe_produk LIKE '%$cari%' OR alamat LIKE '%$cari%'";
+        } else {
+            $query = "SELECT * FROM tbl_distributor";
         }
-        return $hasil;
+        return mysqli_query($this->koneksi, $query);
     }
 
     # READ
@@ -113,14 +114,7 @@ class database
             $query = "SELECT * FROM tbl_barang JOIN tbl_distributor ON tbl_barang.distributor=tbl_distributor.kd_distributor";
         }
 
-        $data_barang = mysqli_query($this->koneksi, $query);
-
-        // die(var_dump($data_barang));
-        while ($row = mysqli_fetch_array($data_barang)) {
-            $hasil[] = $row;
-        }
-        return $data_barang;
-        // return $hasil;
+        return mysqli_query($this->koneksi, $query);
     }
 
     # READ
@@ -169,14 +163,15 @@ class database
     // ======  ROLE BARANG MASUK ======
 
     # CREATE
-    function input_barang_masuk($no_ref, $kd_barang, $kd_distributor, $jumlah, $tgl_masuk, $penerima, $ket, $total)
+    function input_barang_masuk($no_ref, $kd_barang, $kd_distributor, $jumlah, $tgl_masuk, $penerima, $ket, $total, $sisa_stok)
     {
         // query sql insert ke database
         $query = "INSERT INTO tbl_barang_masuk VALUES('$no_ref','$kd_barang','$kd_distributor', '$jumlah', '$tgl_masuk', '$penerima', '$ket', '$total')";
 
         // eksekusi query
         $insert = mysqli_query($this->koneksi, $query);
-        if ($insert) {
+        $update = mysqli_query($this->koneksi, "UPDATE tbl_barang SET stok='$sisa_stok' WHERE kd_barang='$kd_barang'");
+        if ($insert && $update) {
             return true;
         } else {
             return false;
@@ -184,17 +179,26 @@ class database
     }
 
     # READ ALL DATA
-    function data_barang_masuk()
+    function data_barang_masuk($dari = false, $sampai = false)
     {
-        $query = "SELECT * FROM tbl_barang_masuk JOIN tbl_barang ON tbl_barang_masuk.kd_barang=tbl_barang.kd_barang JOIN tbl_distributor ON tbl_barang.distributor=tbl_distributor.kd_distributor";
+        if ($dari && $sampai) {
+            $query = "SELECT * FROM tbl_barang_masuk LEFT JOIN tbl_barang ON tbl_barang_masuk.kd_barang=tbl_barang.kd_barang LEFT JOIN tbl_distributor ON tbl_barang_masuk.kd_distributor=tbl_distributor.kd_distributor WHERE tbl_barang_masuk.tgl_masuk BETWEEN '$dari' AND '$sampai'";
+        } else {
+            $query = "SELECT * FROM tbl_barang_masuk LEFT JOIN tbl_barang ON tbl_barang_masuk.kd_barang=tbl_barang.kd_barang LEFT JOIN tbl_distributor ON tbl_barang.distributor=tbl_distributor.kd_distributor";
+        }
         $result = mysqli_query($this->koneksi, $query);
 
         return $result;
     }
 
-    function data_barang_keluar()
+    function data_barang_keluar($cari = false)
     {
-        return mysqli_query($this->koneksi, "select * from tbl_barang_keluar JOIN tbl_barang ON tbl_barang_keluar.kd_barang = tbl_barang.kd_barang");
+        if ($cari) {
+            $query = "SELECT * FROM tbl_barang_keluar JOIN tbl_barang ON tbl_barang_keluar.kd_barang=tbl_barang.kd_barang WHERE tbl_barang.nm_barang LIKE '%$cari%' OR tbl_barang_keluar.jumlah_keluar LIKE '%$cari%' tbl_barang_keluar.petugas LIKE '%$cari%'";
+        } else {
+            $query = "SELECT * FROM tbl_barang_keluar JOIN tbl_barang ON tbl_barang_keluar.kd_barang=tbl_barang.kd_barang";
+        }
+        return mysqli_query($this->koneksi, $query);
     }
 
     function input_barang_keluar($no_ref, $kd_barang, $jumlah, $total, $tanggal_keluar, $petugas, $diskon)

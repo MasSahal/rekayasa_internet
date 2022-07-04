@@ -14,6 +14,7 @@ if ($aksi == "tambah") {
 
     //kalkulasi harga
     $total = $_POST['jumlah'] * $barang['harga'];
+    $sisa_stok = $_POST['stok'] + $_POST['jumlah'];
 
     $insert = $db->input_barang_masuk(
         $_POST['no_ref'],
@@ -23,7 +24,8 @@ if ($aksi == "tambah") {
         $_POST['tgl_masuk'],
         $_POST['penerima'],
         $_POST['ket'],
-        $total
+        $total,
+        $sisa_stok
     );
 
     if ($insert) {

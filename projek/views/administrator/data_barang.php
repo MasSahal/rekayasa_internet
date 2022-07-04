@@ -14,8 +14,10 @@ include('../../model/database.php');
 $db = new database();
 if (isset($_POST['cari'])) {
     $data_barang = $db->data_barang($_POST['cari']);
+    $pesan = "Menampilkan pencarian " . $_POST['cari'];
 } else {
     $data_barang = $db->data_barang();
+    $pesan = "Menampilkan semua data";
 }
 
 // $data_distributor = $db->data_distributor();
@@ -51,6 +53,7 @@ if (isset($_POST['cari'])) {
                     <button class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
                 <hr>
+                <h5 class="text-center"><?= $pesan; ?></h5>
                 <table class="table table-stripped table-hover">
                     <thead class="thead-light">
                         <tr>

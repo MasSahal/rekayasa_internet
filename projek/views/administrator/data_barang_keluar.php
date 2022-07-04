@@ -12,9 +12,13 @@ $halaman_utama = new dashboard;
 include('../../model/database.php');
 
 $db = new database();
-$data_barang_keluar = $db->data_barang_keluar();
-
-// $data_distributor = $db->data_distributor();
+if (isset($_POST['cari'])) {
+    $data_barang_keluar = $db->data_barang_keluar($_POST['cari']);
+    $pesan = "Menampilkan pencarian " . $_POST['cari'];
+} else {
+    $data_barang_keluar = $db->data_barang_keluar();
+    $pesan = "Menampilkan semua data";
+}
 ?>
 
 
@@ -42,6 +46,12 @@ $data_barang_keluar = $db->data_barang_keluar();
         <div class="col-8" style="border: 1px solid lightgray; border-radius: 10px; padding: 10px;">
             <h3 style="text-align: center; background-color: #5D8AA8; border-radius: 10px; color: white; padding: 10px;">Data Barang Keluar</h3>
             <div class="table-responsive">
+                <form class="form-inline my-2" method="POST" action="data_barang_keluar.php">
+                    <input class="form-control form-control-sm mr-sm-2" type="text" placeholder="Search" aria-label="Search" name="cari">
+                    <button class="btn btn-sm btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+                <hr>
+                <h5 class="text-center"><?= $pesan; ?></h5>
                 <table class="table table-stripped table-hover">
                     <thead class="thead-light">
                         <tr>
