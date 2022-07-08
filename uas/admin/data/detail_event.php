@@ -9,7 +9,7 @@
         <div class="row mb-3">
             <div class="col-md-12">
                 <div class="embed-responsive embed-responsive-16by9">
-                    <img src="../assets/images/event/<?= $view['banner_event']; ?>" class="img-fluid embed-responsive-item">
+                    <img src="../assets/images/banner_event/<?= $view['banner_event']; ?>" class="img-fluid embed-responsive-item">
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
                     <tr>
                         <th>Tanggal Diselenggarakan</th>
                         <td>:</td>
-                        <td><?= $view['tanggal_event']; ?></td>
+                        <td><?= $db->tanggal($view['tanggal_event']); ?></td>
                     </tr>
                     <tr>
                         <th>Waktu</th>
@@ -44,14 +44,14 @@
                         <td><?= $view['jam_event']; ?></td>
                     </tr>
                     <tr>
-                        <th>Tanggal Daftar</th>
-                        <td>:</td>
-                        <td><?= $view['created_event']; ?></td>
-                    </tr>
-                    <tr>
                         <th>Lokasi Event</th>
                         <td>:</td>
                         <td><?= $view['lokasi_event']; ?></td>
+                    </tr>
+                    <tr>
+                        <th>Created Event</th>
+                        <td>:</td>
+                        <td><?= $view['created_event']; ?></td>
                     </tr>
                     <tr>
                         <th>Detail</th>

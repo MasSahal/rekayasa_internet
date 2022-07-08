@@ -16,11 +16,54 @@ class database
         if (!$this->koneksi) {
             die("Koneksi database gagal! : " . mysqli_connect_errno() . " - " . mysqli_connect_error());
         }
+        //set default timezone
+        date_default_timezone_set("asia/jakarta");
     }
 
     function login($username, $password)
     {
         $query = "SELECT * FROM data_user WHERE username = '$username' AND password = '$password' LIMIT 1";
         return mysqli_fetch_assoc(mysqli_query($this->koneksi, $query));
+    }
+
+
+    //helper
+    function tanggal($tanggal, $day = true)
+    {
+
+        $tanggal = date('d-m-Y', strtotime($tanggal));
+        $hari = array(
+            1 => 'Senin',
+            'Selasa',
+            'Rabu',
+            'Kamis',
+            'Jumat',
+            'Sabtu',
+            'Minggu'
+        );
+        $bulan = array(
+            1 => 'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+
+        $split       = explode('-', $tanggal);
+        $tgl_indo = $split[0] . ' ' . $bulan[(int)$split[1]] . ' ' . $split[2];
+
+        $num = date('N', strtotime($tanggal)); // retrun int dari hari 1=senin as default
+        if ($day) {
+            echo $hari[$num] . ', ' . $tgl_indo;
+        } else {
+            echo $tgl_indo;
+        }
     }
 }

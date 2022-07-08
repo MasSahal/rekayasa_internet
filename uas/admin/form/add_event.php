@@ -1,63 +1,65 @@
 <div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Data User</h5>
+                <h5 class="modal-title">Tambah Data Event</h5>
                 <button type="button" class="close btn-transparent" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="../proses/user_proses.php?mod=insert" method="post" class="formtambah" enctype="multipart/form-data" accept-charset="utf-8">
+            <form action="../proses/event_proses.php?mod=insert" method="post" class="formtambah" enctype="multipart/form-data" accept-charset="utf-8">
                 <div class="modal-body">
                     <p class="error"></p>
                     <div class="form-group row">
-                        <label for="fullname" class="col-sm-4 col-form-label">Nama Lengkap</label>
+                        <label for="nama_event" class="col-sm-4 col-form-label">Nama Event</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Masukan nama lengkap">
+                            <input type="text" class="form-control" name="nama_event" id="nama_event" placeholder="Masukan nama event" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="username" class="col-sm-4 col-form-label">Username</label>
+                        <label for="tanggal_event" class="col-sm-4 col-form-label">Tanggal Event</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="username" id="username" placeholder="Masukan username">
+                            <input type="date" class="form-control" name="tanggal_event" id="tanggal_event" placeholder="Masukan tanggal event" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="password" class="col-sm-4 col-form-label">Password</label>
-                        <div class="col-sm-8">
-                            <input type="text" class="form-control" name="password" id="password" placeholder="Masukan password">
+                        <label for="jam_awal" class="col-sm-4 col-form-label">Waktu Event</label>
+                        <div class="col-sm-4">
+                            <label for="jam_awal">Jam Mulai</label>
+                            <input type="time" class="form-control" name="jam_awal" id="jam_awal" required>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="jam_akhir">Jam Selesai</label>
+                            <input type="time" class="form-control" name="jam_akhir" id="jam_akhir" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="no_hp" class="col-sm-4 col-form-label">No Hp</label>
+                        <label for="lokasi_event" class="col-sm-4 col-form-label">Lokasi</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="no_hp" id="no_hp" placeholder="Masukan nomor hp">
+                            <input type="text" class="form-control" name="lokasi_event" id="lokasi_event" placeholder="Masukan lokasi e.g: Cirebon" required>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="role" class="col-sm-4 col-form-label">Role</label>
+                        <label for="banner_event" class="col-sm-4 col-form-label">Foto Banner Event</label>
                         <div class="col-sm-8">
-                            <select name="role" id="role" class="form-control">
-                                <option selected disabled>Pilih Role</option>
-                                <option value="1">Akun Admin</option>
-                                <option value="2">Akun User</option>
-                            </select>
+                            <input type="file" class="form-control" name="banner_event" id="banner_event" onchange="bacaimg(this)" required>
+                            <div id="res"></div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="profile" class="col-sm-4 col-form-label">Foto Profile</label>
+                        <label for="detail_event" class="col-sm-4 col-form-label">Detail Event</label>
                         <div class="col-sm-8">
-                            <input type="file" class="form-control" name="profile" id="profile">
+                            <textarea name="detail_event" id="detail_event" rows="3" class="form-control" required placeholder="Masukan detail event"></textarea>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="alamat" class="col-sm-4 col-form-label">Alamat</label>
+                        <label for="gmap_event" class="col-sm-4 col-form-label">Google Map</label>
                         <div class="col-sm-8">
-                            <textarea name="alamat" id="alamat" rows="3" class="form-control"></textarea>
+                            <textarea name="gmap_event" id="gmap_event" rows="3" class="form-control" placeholder="Masukan lokasi"></textarea>
                         </div>
                     </div>
                 </div>
-                <div class=" modal-footer">
+                <div class="modal-footer">
                     <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary btn-sm btnsimpan">Tambahkan</button>
                 </div>
@@ -73,7 +75,7 @@
             let data = new FormData(form);
             $.ajax({
                 type: "post",
-                url: '../proses/user_proses.php?mod=insert',
+                url: '../proses/event_proses.php?mod=insert',
                 data: data,
                 processData: false,
                 contentType: false,
@@ -108,9 +110,8 @@
                         icon: "error",
                         showConfirmButton: false,
                         timer: 3100
-                    }).then(function() {
-                        window.location.reload();
-                    });
+                    })
+
                 }
             });
         })

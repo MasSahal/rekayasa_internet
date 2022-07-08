@@ -33,7 +33,7 @@
                         </td>
                         <th><?= $i += 1; ?></th>
                         <td><a href="?detail=<?= $r['id_event']; ?>" class="font-weight-bold text-amazon text-underline"><?= $r['nama_event']; ?></a></td>
-                        <td><?= $r['tanggal_event']; ?></td>
+                        <td><?= $db->tanggal($r['tanggal_event']); ?></td>
                         <td><?= $r['jam_event']; ?></td>
                         <td><?= $r['lokasi_event']; ?></td>
                         <td><?= $r['detail_event']; ?></td>

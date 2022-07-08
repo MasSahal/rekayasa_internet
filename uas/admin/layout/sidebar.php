@@ -20,7 +20,7 @@
         </div>
         <div class="pcoded-navigation-label">Navigation</div>
         <ul class="pcoded-item pcoded-left-item">
-            <li class="active">
+            <li class="<?= basename($_SERVER['PHP_SELF']) == "index.php" ? "active" : ""; ?>">
                 <a href="index.php" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
                     <span class="pcoded-mtext">Dashboard</span>
@@ -105,15 +105,15 @@
         </ul>
         <div class="pcoded-navigation-label">MASTER DATA</div>
         <ul class="pcoded-item pcoded-left-item">
-            <li class="">
+            <li class="<?= basename($_SERVER['PHP_SELF']) == "data_events.php" ? "active" : ""; ?>">
                 <a href="data_events.php" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-calendar"></i><b>EV</b></span>
                     <span class="pcoded-mtext">Events</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-            <li class="">
-                <a href="data_events.php" class="waves-effect waves-dark">
+            <li class="<?= basename($_SERVER['PHP_SELF']) == "data_tickets.php" ? "active" : ""; ?>">
+                <a href="data_tickets.php" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-ticket"></i><b>TC</b></span>
                     <span class="pcoded-mtext">Tickets</span>
                     <span class="pcoded-mcaret"></span>
@@ -122,7 +122,7 @@
         </ul>
         <div class="pcoded-navigation-label">EXTRAS</div>
         <ul class="pcoded-item pcoded-left-item">
-            <li class="">
+            <li class="<?= basename($_SERVER['PHP_SELF']) == "data_users.php" ? "active" : ""; ?>">
                 <a href="data_users.php" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-user"></i><b>U</b></span>
                     <span class="pcoded-mtext">Data Users</span>
