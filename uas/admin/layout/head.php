@@ -25,3 +25,6 @@
     <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     <link rel="stylesheet" type="text/css" href="../assets/DataTables/datatables.min.css" />
     <script src="../assets/sweetalert2/dist/sweetalert2.all.min.js"></script>
+
+    <!-- ico font -->
+    <link rel="stylesheet" type="text/css" href="../assets/icon/icofont/css/icofont.css">

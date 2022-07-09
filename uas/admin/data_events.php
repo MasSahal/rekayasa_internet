@@ -4,7 +4,6 @@
 <head>
     <title>Data Events - Ms Tech</title>
     <?php include('./layout/head.php'); ?>
-
 </head>
 
 <body>
@@ -61,15 +60,16 @@
                                                     include('./data/detail_event.php');
                                                 } else { ?>
                                                     <script>
-                                                        window.location = '404_page.php?message=Halaman tidak ditemukan'
+                                                        window.location = '404_page.php?message=' + '<?= urlencode("Data event yang anda cari tidak ditemukan!") ?>';
                                                     </script>
                                                 <?php }
                                                 #
                                             } else { ?>
                                                 <script>
-                                                    window.location = '404_page.php?message=Halaman tidak ditemukan'
+                                                    window.location = '404_page.php?message=' + '<?= urlencode("Oops Halaman yang anda cari tidak ditemukan!") ?>';
                                                 </script>
-                                        <?php }
+                                        <?php
+                                            }
                                         }
                                         ?>
                                         <div class="card">
@@ -142,7 +142,7 @@
         });
 
         function uri(link) {
-            window.location = link;
+            return window.location = link;
         }
     </script>
 

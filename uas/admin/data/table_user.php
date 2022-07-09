@@ -11,7 +11,12 @@
             <thead>
                 <tr>
                     <th>
-                        <input type="checkbox" id="centangSemua" class="text-center">
+                        <div class="checkbox-fade fade-in-primary">
+                            <label>
+                                <input type="checkbox" id="centangSemua" class="centangid">
+                                <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                            </label>
+                        </div>
                     </th>
                     <th>#</th>
                     <th>Nama Lengkap</th>
@@ -28,7 +33,12 @@
                 foreach ($users as $i => $r) { ?>
                     <tr>
                         <td>
-                            <input type="checkbox" name="id[]" class="centangid" value="<?= $r['id_user']; ?>">
+                            <div class="checkbox-fade fade-in-primary d-">
+                                <label>
+                                    <input type="checkbox" name="id[]" class="centangid" value="<?= $r['id_user']; ?>">
+                                    <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                </label>
+                            </div>
                         </td>
                         <th><?= $i += 1; ?></th>
                         <td><a href="?detail=<?= $r['id_user']; ?>" class="font-weight-bold text-amazon text-underline"><?= $r['fullname']; ?></a></td>
@@ -36,7 +46,7 @@
                         <td><?= $r['no_hp']; ?></td>
                         <td><?= $r['alamat']; ?></td>
                         <td>
-                            <button class="btn btn-secondary text-black p-1" onclick="uri('data_users.php?detail=<?= $r['id_user']; ?>)" role="button"><i class="ti-eye"></i></button>
+                            <button class="btn btn-secondary text-black p-1" onclick="uri('data_users.php?detail=<?= $r['id_user']; ?>')" role="button"><i class="ti-eye"></i></button>
                             <button class="btn btn-info text-black p-1" onclick="edit(<?= $r['id_user']; ?>)" role="button"><i class="ti-pencil"></i></button>
                             <button class="btn btn-danger text-black p-1" onclick="hapus(<?= $r['id_user']; ?>,'<?= $r['fullname']; ?>')" role="button"><i class="ti-trash"></i></button>
                         </td>
@@ -45,6 +55,7 @@
             </tbody>
         </table>
     </div>
+    <!-- <div class="viewmodal"></div> -->
     <script>
         $(document).ready(function() {
             $('.dataTable').DataTable();
@@ -131,6 +142,33 @@
                     });
                 }
             })
+        }
+
+        function edit(id) {
+            $.ajax({
+                url: './form/upd_user.php?id=' + id,
+                type: 'GET',
+                beforeSend: function() {
+                    $('.viewmodal').html('<div class="preload"><div class="loader"></div></div>');
+                },
+                success: function(data) {
+                    $('.viewmodal').html(data);
+                    $('#modaledit').modal({
+                        backdrop: 'static',
+                        keyboard: false
+                    });
+                    $('#modaledit').modal('show');
+                },
+                error: function(xhr, ajaxOptions, thrownerror) {
+                    Swal.fire({
+                        title: "Maaf gagal load data!",
+                        html: `Silahkan Cek kembali Kode Error: <strong>${(xhr.status + "\n")}</strong> `,
+                        icon: "error",
+                        showConfirmButton: false,
+                        timer: 3100
+                    })
+                }
+            });
         }
     </script>
 </div>

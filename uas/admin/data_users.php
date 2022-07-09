@@ -53,17 +53,26 @@
                                     <div class="page-body">
 
                                         <!-- cek apakah sedang lihat detail -->
-                                        <?php if (isset($_GET['detail'])) {;
-                                            $id = $_GET['detail'];
-                                            $view = $db->get_user($id);
-                                            if ($view) {
-                                                include('./data/detail_user.php');
+                                        <?php if (isset($_GET['detail'])) {
+                                            if (is_numeric($_GET['detail']) && abs($_GET['detail'] == $_GET['detail'])) {
+                                                $id = $_GET['detail'];
+                                                $view = $db->get_user($id);
+                                                if ($view) {
+                                                    include('./data/detail_user.php');
+                                                } else { ?>
+                                                    <script>
+                                                        window.location = '404_page.php?message=' + '<?= urlencode("Data user dengan ID $id Tidak ditemukan!") ?>';
+                                                    </script>
+                                                <?php }
+                                                #
                                             } else { ?>
                                                 <script>
-                                                    window.location = '404_page.php?message=Halaman tidak ditemukan'
+                                                    window.location = '404_page.php?message=' + '<?= urlencode("Oops Halaman yang anda cari tidak ditemukan!") ?>';
                                                 </script>
-                                        <?php }
-                                        } ?>
+                                        <?php
+                                            }
+                                        }
+                                        ?>
                                         <div class="card">
                                             <div class="card-header">
                                                 <h5>Data Users</h5>
@@ -134,10 +143,9 @@
         });
 
         function uri(link) {
-            window.location = link;
+            return window.location = link;
         }
     </script>
-
 </body>
 
 </html>

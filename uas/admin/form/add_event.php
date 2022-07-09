@@ -43,6 +43,7 @@
                         <label for="banner_event" class="col-sm-4 col-form-label">Foto Banner Event</label>
                         <div class="col-sm-8">
                             <input type="file" class="form-control" name="banner_event" id="banner_event" onchange="bacaimg(this)" required>
+                            <small>Ukuran disarankan 450px x 850px</small>
                             <div id="res"></div>
                         </div>
                     </div>

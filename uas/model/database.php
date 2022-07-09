@@ -6,7 +6,6 @@ class database
     var $user = "root";
     var $pass = "root";
     var $name = "projek_uas";
-
     var $koneksi = "";
 
     function __construct()
@@ -61,9 +60,14 @@ class database
 
         $num = date('N', strtotime($tanggal)); // retrun int dari hari 1=senin as default
         if ($day) {
-            echo $hari[$num] . ', ' . $tgl_indo;
+            return $hari[$num] . ', ' . $tgl_indo;
         } else {
-            echo $tgl_indo;
+            return $tgl_indo;
         }
+    }
+
+    function clock($tanggal, $pemisah = ":")
+    {
+        return date('H' . $pemisah . 'i', strtotime($tanggal));
     }
 }

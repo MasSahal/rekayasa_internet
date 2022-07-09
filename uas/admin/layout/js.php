@@ -17,14 +17,16 @@
 
     <script type="text/javascript" src="../assets/js/script.js "></script>
     <script type="text/javascript" src="../assets/DataTables/datatables.min.js"></script>
+
+    <script type="text/javascript" src="../assets/js/common-pages.js"></script>
     <script>
         function bacaimg(input) {
             if (input.files && input.files[0]) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    // $('#img').removeClass('d-none');
-                    // $('#img').attr('src', )
-                    $('#res').html('<img src="' + e.target.result + '" alt="" id="img" width="100px" class="img-fluid mt-3">')
+                    $('#img').removeClass('d-none');
+                    $('#img').attr('src', e.target.result)
+                    // $('#res').html('<img src="' + e.target.result + '" alt="" id="img" width="100px" class="img-fluid mt-3">')
                 }
                 reader.readAsDataURL(input.files[0]);
             }

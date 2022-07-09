@@ -13,31 +13,31 @@
                     <div class="form-group row">
                         <label for="fullname" class="col-sm-4 col-form-label">Nama Lengkap</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Masukan nama lengkap">
+                            <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Masukan nama lengkap" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="username" class="col-sm-4 col-form-label">Username</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="username" id="username" placeholder="Masukan username">
+                            <input type="text" class="form-control" name="username" id="username" placeholder="Masukan username" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="password" class="col-sm-4 col-form-label">Password</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="password" id="password" placeholder="Masukan password">
+                            <input type="text" class="form-control" name="password" id="password" placeholder="Masukan password" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="no_hp" class="col-sm-4 col-form-label">No Hp</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" name="no_hp" id="no_hp" placeholder="Masukan nomor hp">
+                            <input type="text" class="form-control" name="no_hp" id="no_hp" placeholder="Masukan nomor hp" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="role" class="col-sm-4 col-form-label">Role</label>
                         <div class="col-sm-8">
-                            <select name="role" id="role" class="form-control">
+                            <select name="role" id="role" class="form-control" required>
                                 <option selected disabled>Pilih Role</option>
                                 <option value="1">Akun Admin</option>
                                 <option value="2">Akun User</option>
@@ -47,13 +47,13 @@
                     <div class="form-group row">
                         <label for="profile" class="col-sm-4 col-form-label">Foto Profile</label>
                         <div class="col-sm-8">
-                            <input type="file" class="form-control" name="profile" id="profile">
+                            <input type="file" class="form-control" name="profile" id="profile" required>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="alamat" class="col-sm-4 col-form-label">Alamat</label>
                         <div class="col-sm-8">
-                            <textarea name="alamat" id="alamat" rows="3" class="form-control"></textarea>
+                            <textarea name="alamat" id="alamat" rows="3" class="form-control" required></textarea>
                         </div>
                     </div>
                 </div>

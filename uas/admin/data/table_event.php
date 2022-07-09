@@ -11,7 +11,12 @@
             <thead>
                 <tr>
                     <th>
-                        <input type="checkbox" id="centangSemua" class="text-center">
+                        <div class="checkbox-fade fade-in-primary">
+                            <label>
+                                <input type="checkbox" id="centangSemua" class="centangid">
+                                <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                            </label>
+                        </div>
                     </th>
                     <th>#</th>
                     <th>Nama Event</th>
@@ -29,7 +34,12 @@
                 foreach ($events as $i => $r) { ?>
                     <tr>
                         <td>
-                            <input type="checkbox" name="id[]" class="centangid" value="<?= $r['id_event']; ?>">
+                            <div class="checkbox-fade fade-in-primary d-">
+                                <label>
+                                    <input type="checkbox" name="id[]" class="centangid" value="<?= $r['id_event']; ?>">
+                                    <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
+                                </label>
+                            </div>
                         </td>
                         <th><?= $i += 1; ?></th>
                         <td><a href="?detail=<?= $r['id_event']; ?>" class="font-weight-bold text-amazon text-underline"><?= $r['nama_event']; ?></a></td>
