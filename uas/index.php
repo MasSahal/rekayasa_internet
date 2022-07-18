@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Material Able bootstrap admin template by Codedthemes</title>
+	<title>Login Aplikasi</title>
 	<!-- HTML5 Shim and Respond.js IE10 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 10]>
@@ -45,9 +45,9 @@
 				<div class="col-sm-12">
 					<!-- Authentication card start -->
 
-					<form class="md-float-material form-material">
+					<form class="md-float-material form-material" action="proses_login.php" method="post">
 						<div class="text-center">
-							<img src="./assets/images/logo.png" alt="logo.png">
+							<h5>Aplikasi E-ticket</h5>
 						</div>
 						<div class="auth-box card">
 							<div class="card-block">
@@ -56,10 +56,11 @@
 										<h3 class="text-center">Sign In</h3>
 									</div>
 								</div>
+								<span class="text-danger text-center"><?= isset($_GET['pesan']) ? $_GET['pesan'] : ""; ?></span>
 								<div class="form-group form-primary">
-									<input type="text" name="email" class="form-control">
+									<input type="text" name="username" class="form-control">
 									<span class="form-bar"></span>
-									<label class="float-label">Your Email Address</label>
+									<label class="float-label">Username</label>
 								</div>
 								<div class="form-group form-primary">
 									<input type="password" name="password" class="form-control">
@@ -82,7 +83,7 @@
 								</div>
 								<div class="row m-t-30">
 									<div class="col-md-12">
-										<button type="button" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Sign in</button>
+										<button type="submit" class="btn btn-primary btn-md btn-block waves-effect waves-light text-center m-b-20">Sign in</button>
 									</div>
 								</div>
 								<hr />

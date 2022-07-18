@@ -28,7 +28,6 @@
 
     <!-- ico font -->
     <link rel="stylesheet" type="text/css" href="../assets/icon/icofont/css/icofont.css">
-
     <?php
     session_start();
     if (isset($_SESSION['id_user'])) {

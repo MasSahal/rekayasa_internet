@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Data Users - Ms Tech</title>
+    <title>Data transaksi - Ms Tech</title>
     <?php include('./layout/head.php'); ?>
 
 </head>
@@ -10,9 +10,9 @@
 <body>
 
     <?php
-    include('./layout/loader.php');
-    include('../model/user_model.php');
-    $db = new user; ?>
+    // include('./layout/loader.php');
+    //$db = new transaksi; 
+    ?>
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
@@ -36,7 +36,7 @@
                                             <li class="breadcrumb-item">
                                                 <a href="index.html"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Data Users</a>
+                                            <li class="breadcrumb-item"><a href="#!">Data Transaksi</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -51,32 +51,10 @@
                                 <div class="page-wrapper">
                                     <!-- Page-body start -->
                                     <div class="page-body">
-
-                                        <!-- cek apakah sedang lihat detail -->
-                                        <?php if (isset($_GET['detail'])) {
-                                            if (is_numeric($_GET['detail']) && abs($_GET['detail'] == $_GET['detail'])) {
-                                                $id = $_GET['detail'];
-                                                $view = $db->get_user($id);
-                                                if ($view) {
-                                                    include('./data/detail_user.php');
-                                                } else { ?>
-                                                    <script>
-                                                        window.location = '404_page.php?message=' + '<?= urlencode("Data user dengan ID $id Tidak ditemukan!") ?>';
-                                                    </script>
-                                                <?php }
-                                                #
-                                            } else { ?>
-                                                <script>
-                                                    window.location = '404_page.php?message=' + '<?= urlencode("Oops Halaman yang anda cari tidak ditemukan!") ?>';
-                                                </script>
-                                        <?php
-                                            }
-                                        }
-                                        ?>
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>Data Users</h5>
-                                                <span>Menampilkan semua data user/pengguna yang bisa mengakses halaman admin</span>
+                                                <h5>Data transaksi</h5>
+                                                <span>Menampilkan semua data transaksi yang ada</span>
                                                 <div class="card-header-right">
                                                     <ul class="list-unstyled card-option">
                                                         <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -88,7 +66,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body viewtabel">
-
+                                                <?php include("./data/table_transaksi.php"); ?>
                                             </div>
                                         </div>
                                     </div>
@@ -104,10 +82,10 @@
     </div>
     <div class="viewmodal"></div>
     <?php include('./layout/js.php'); ?>
-    <script>
+    <!-- <script>
         function listdata() {
             $.ajax({
-                url: './data/table_users.php',
+                url: './data/table_transaksi.php',
                 type: 'GET',
                 success: function(data) {
                     $('.viewtabel').html(data);
@@ -145,7 +123,7 @@
         function uri(link) {
             return window.location = link;
         }
-    </script>
+    </script> -->
 </body>
 
 </html>

@@ -2,17 +2,16 @@
 <html lang="en">
 
 <head>
-    <title>Data Users - Ms Tech</title>
+    <title>Data Tickets - Ms Tech</title>
     <?php include('./layout/head.php'); ?>
-
 </head>
 
 <body>
 
     <?php
-    include('./layout/loader.php');
-    include('../model/user_model.php');
-    $db = new user; ?>
+    // include('./layout/loader.php');
+    include('../model/voucher_model.php');
+    $db = new voucher; ?>
     <div id="pcoded" class="pcoded">
         <div class="pcoded-overlay-box"></div>
         <div class="pcoded-container navbar-wrapper">
@@ -27,16 +26,16 @@
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
                                         <div class="page-header-title">
-                                            <h5 class="m-b-10">Dashboard</h5>
+                                            <h5 class="m-b-10">Events</h5>
                                             <p class="m-b-0">Welcome to E-Ticket</p>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
                                         <ul class="breadcrumb">
                                             <li class="breadcrumb-item">
-                                                <a href="index.html"> <i class="fa fa-home"></i> </a>
+                                                <a href="index.php"> <i class="fa fa-home"></i> </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="#!">Data Users</a>
+                                            <li class="breadcrumb-item"><a href="#!">Tickets</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -56,12 +55,12 @@
                                         <?php if (isset($_GET['detail'])) {
                                             if (is_numeric($_GET['detail']) && abs($_GET['detail'] == $_GET['detail'])) {
                                                 $id = $_GET['detail'];
-                                                $view = $db->get_user($id);
+                                                $view = $db->get_voucher($id);
                                                 if ($view) {
-                                                    include('./data/detail_user.php');
+                                                    include('./data/detail_event.php');
                                                 } else { ?>
                                                     <script>
-                                                        window.location = '404_page.php?message=' + '<?= urlencode("Data user dengan ID $id Tidak ditemukan!") ?>';
+                                                        window.location = '404_page.php?message=' + '<?= urlencode("Data event yang anda cari tidak ditemukan!") ?>';
                                                     </script>
                                                 <?php }
                                                 #
@@ -73,10 +72,11 @@
                                             }
                                         }
                                         ?>
+
                                         <div class="card">
                                             <div class="card-header">
-                                                <h5>Data Users</h5>
-                                                <span>Menampilkan semua data user/pengguna yang bisa mengakses halaman admin</span>
+                                                <h5>Data Vouchers</h5>
+                                                <span>Menampilkan semua voucher yang sedang berlangsung</span>
                                                 <div class="card-header-right">
                                                     <ul class="list-unstyled card-option">
                                                         <li><i class="fa fa fa-wrench open-card-option"></i></li>
@@ -87,8 +87,18 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div class="card-body viewtabel">
-
+                                            <div class="card-body">
+                                                <div class="viewtabel">
+                                                    <div class="jumbotron text-center" style="min-height:300px ;">
+                                                        <h1 class="display-5 ">Tidak ada data yang ditampilkan!</h1>
+                                                        <p class="lead">Silahkan reload data yang akan ditampilkan.</p>
+                                                        <hr class="my-2">
+                                                        <p>Selengkapnya</p>
+                                                        <p class="lead">
+                                                            <a class="btn btn-primary btn-sm" href="data_events.php" role="button">Lihat Events</a>
+                                                        </p>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -104,10 +114,12 @@
     </div>
     <div class="viewmodal"></div>
     <?php include('./layout/js.php'); ?>
+    <script src="../assets/select2/js/select2.min.js"></script>
+
     <script>
         function listdata() {
             $.ajax({
-                url: './data/table_users.php',
+                url: './data/table_vouchers.php',
                 type: 'GET',
                 success: function(data) {
                     $('.viewtabel').html(data);
@@ -125,7 +137,6 @@
         }
 
         $(document).ready(function() {
-            listdata();
             $(".reload").on("click", function() {
                 var $this = $(this);
                 $this.parents(".card").addClass("card-load");
@@ -140,12 +151,18 @@
                 }, 2000);
                 listdata();
             });
+            listdata();
+            $('#id_voucher').select2({
+                placeholder: "Pilih Event Terkait",
+                allowClear: true
+            });
         });
 
         function uri(link) {
             return window.location = link;
         }
     </script>
+
 </body>
 
 </html>

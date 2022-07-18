@@ -84,7 +84,8 @@
                     } else {
                         Swal.fire({
                             icon: 'success',
-                            title: response.message,
+                            title: "Selamat!",
+                            text: response.message,
                             showConfirmButton: false,
                             timer: 1500
                         })

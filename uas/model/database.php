@@ -19,12 +19,20 @@ class database
         date_default_timezone_set("asia/jakarta");
     }
 
-    function login($username, $password)
+    function login($username)
     {
-        $query = "SELECT * FROM data_user WHERE username = '$username' AND password = '$password' LIMIT 1";
+        $query = "SELECT * FROM data_user WHERE username = '$username' LIMIT 1";
         return mysqli_fetch_assoc(mysqli_query($this->koneksi, $query));
     }
 
+    function query($query, $fetch = false)
+    {
+        if ($fetch) {
+            return mysqli_fetch_assoc(mysqli_query($this->koneksi, $query));
+        } else {
+            return mysqli_query($this->koneksi, $query);
+        }
+    }
 
     //helper
     function tanggal($tanggal, $day = true)

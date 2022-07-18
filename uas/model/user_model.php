@@ -27,7 +27,11 @@ class user extends database
 
     function delete_user($id)
     {
-        $query = "DELETE FROM data_user WHERE id_user = '$id'";
+        if (is_array($id)) {
+            $query = "DELETE FROM data_user WHERE id_user IN (" . implode(',', $id) . ")";
+        } else {
+            $query = "DELETE FROM data_user WHERE id_user = '$id'";
+        }
         return mysqli_query($this->koneksi, $query);
     }
 }

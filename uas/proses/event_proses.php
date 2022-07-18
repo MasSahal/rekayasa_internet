@@ -27,7 +27,7 @@ if (isset($_GET['mod'])) {
 
         if (in_array($ext, $allowed_ext)) {
             if ($size < 5000000) {
-                $nama_banner_event = rand(1000, 9999) . strtolower(str_replace([' ', "-", "_"], '-', substr($nama_event, 0, 80))) . time() . '.' . $ext;
+                $nama_banner_event = rand(1000, 9999) . "-" . strtolower(str_replace([' ', "-", "_"], '-', substr($nama_event, 0, 80))) . "-" . time() . '.' . $ext;
 
                 //make path
                 $path = "../assets/images/banner_event/" . $nama_banner_event;
@@ -63,9 +63,23 @@ if (isset($_GET['mod'])) {
         $id = $_POST['id'];
         $old_data = $db->get_event($id);
 
-        if ($old_data['banner_event'] != "event.jpg") {
-            if (file_exists("../assets/images/banner_event/" . $old_data['banner_event'])) {
-                unlink("../assets/images/banner_event/" . $old_data['banner_event']);
+        if (is_array($id)) {
+            for ($i = 0; $i < count($id); $i++) {
+                $old_data = $db->get_event($id[$i]);
+
+                if ($old_data['banner_event'] != "event.jpg") {
+                    if (file_exists("../assets/images/banner_event/" . $old_data['banner_event'])) {
+                        unlink("../assets/images/banner_event/" . $old_data['banner_event']);
+                    }
+                }
+            }
+        } else {
+            $old_data = $db->get_event($id);
+
+            if ($old_data['banner_event'] != "event.jpg") {
+                if (file_exists("../assets/images/banner_event/" . $old_data['banner_event'])) {
+                    unlink("../assets/images/banner_event/" . $old_data['banner_event']);
+                }
             }
         }
 

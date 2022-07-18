@@ -3,9 +3,9 @@
     <div class="pcoded-inner-navbar main-menu">
         <div class="">
             <div class="main-menu-header">
-                <img class="img-80 img-radius" src="../assets/images/profile/<?= $_SESSION['profile']; ?>" alt="User-Profile-Image">
+                <img class="img-80 img-radius" src="../assets/images/avatar-4.jpg" alt="User-Profile-Image">
                 <div class="user-details">
-                    <span id="more-details"><?= $_SESSION['fullname']; ?><i class="fa fa-caret-down"></i></span>
+                    <span id="more-details">Mas Sahal<i class="fa fa-caret-down"></i></span>
                 </div>
             </div>
             <div class="main-menu-content">
@@ -13,7 +13,7 @@
                     <li class="more-details">
                         <a href="user-profile.html"><i class="ti-user"></i>View Profile</a>
                         <a href="#!"><i class="ti-settings"></i>Settings</a>
-                        <a href="#" data-toggle="modal" data-target="#logout"><i class="ti-layout-sidebar-left"></i>Logout</a>
+                        <a href="auth-normal-sign-in.html"><i class="ti-layout-sidebar-left"></i>Logout</a>
                     </li>
                 </ul>
             </div>
@@ -44,13 +44,6 @@
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
-            <li class="<?= basename($_SERVER['PHP_SELF']) == "data_transaksi.php" ? "active" : ""; ?>">
-                <a href="data_transaksi.php" class="waves-effect waves-dark">
-                    <span class="pcoded-micon"><i class="ti-paste"></i><b>TC</b></span>
-                    <span class="pcoded-mtext">Transaksi</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
         </ul>
         <div class="pcoded-navigation-label">EXTRAS</div>
         <ul class="pcoded-item pcoded-left-item">
@@ -65,13 +58,6 @@
                 <a href="data_vouchers.php" class="waves-effect waves-dark">
                     <span class="pcoded-micon"><i class="ti-receipt"></i><b>B</b></span>
                     <span class="pcoded-mtext">Vouchers Discount</span>
-                    <span class="pcoded-mcaret"></span>
-                </a>
-            </li>
-            <li class="">
-                <a href="#" class="waves-effect waves-dark" data-toggle="modal" data-target="#logout">
-                    <span class="pcoded-micon"><i class="ti-return"></i><b>B</b></span>
-                    <span class="pcoded-mtext">Logout</span>
                     <span class="pcoded-mcaret"></span>
                 </a>
             </li>
@@ -102,6 +88,5 @@
                 </ul>
             </li>
         </ul> -->
-        <?= var_dump($_SESSION); ?>
     </div>
 </nav>

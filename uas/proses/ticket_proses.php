@@ -36,6 +36,7 @@ if (isset($_GET['mod'])) {
 
         $id = htmlspecialchars($_POST['id']);
         $old_data = $db->get_ticket($id);
+
         $jenis_ticket = htmlspecialchars($_POST['jenis_ticket']);
         $detail_ticket = htmlspecialchars($_POST['detail_ticket']);
         $expired_ticket = htmlspecialchars($_POST['expired_ticket']);

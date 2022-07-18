@@ -13,6 +13,12 @@ if (isset($_GET['mod'])) {
     if ($mod == "insert") {
         $nama = htmlspecialchars($_POST['fullname']);
 
+        //cek nama apakah sama
+        // $db->query("SELECT * FROM data_user WHERE fullname = '$nama'", true);
+        // if (count($db->data) > 0) {
+        //     echo json_encode(array('status' => 'error', 'title' => 'Error!', 'message' => 'Username sudah digunakan!'));
+        // }
+
         $profile = $_FILES['profile']['name'];
         $tmp = $_FILES['profile']['tmp_name'];
 
@@ -48,15 +54,15 @@ if (isset($_GET['mod'])) {
                 );
 
                 if ($add) {
-                    echo json_encode(array('status' => 'success', 'message' => 'Data berhasil ditambahkan'));
+                    echo json_encode(array('status' => 'success', 'title' => 'Berhasil!', 'message' => 'Data berhasil ditambahkan'));
                 } else {
-                    echo json_encode(array('status' => 'error', 'message' => 'Data gagal ditambahkan'));
+                    echo json_encode(array('status' => 'error', 'title' => 'Error!', 'message' => 'Data gagal ditambahkan'));
                 }
             } else {
-                echo json_encode(array('status' => 'error', 'message' => 'Ukuran file terlalu besar'));
+                echo json_encode(array('status' => 'error', 'title' => 'Error!', 'message' => 'Ukuran file terlalu besar'));
             }
         } else {
-            echo json_encode(array('status' => 'error', 'message' => 'Format file tidak sesuai - jpg, jpeg, png, gif'));
+            echo json_encode(array('status' => 'error', 'title' => 'Error!', 'message' => 'Format file tidak sesuai - jpg, jpeg, png, gif'));
         }
     } elseif ($mod == "update") {
 
@@ -129,13 +135,27 @@ if (isset($_GET['mod'])) {
         }
     } elseif ($mod == "delete") {
         $id = $_POST['id'];
-        $old_data = $db->get_user($id);
+        // die(var_dump($id));
+        if (is_array($id)) {
+            for ($i = 0; $i < count($id); $i++) {
+                $old_data = $db->get_user($id[$i]);
 
-        if ($old_data['profile'] != "user.jpg") {
-            if (file_exists("../assets/images/profile/" . $old_data['profile'])) {
-                unlink("../assets/images/profile/" . $old_data['profile']);
+                if ($old_data['profile'] != "user.jpg") {
+                    if (file_exists("../assets/images/profile/" . $old_data['profile'])) {
+                        unlink("../assets/images/profile/" . $old_data['profile']);
+                    }
+                }
+            }
+        } else {
+            $old_data = $db->get_user($id);
+
+            if ($old_data['profile'] != "user.jpg") {
+                if (file_exists("../assets/images/profile/" . $old_data['profile'])) {
+                    unlink("../assets/images/profile/" . $old_data['profile']);
+                }
             }
         }
+
 
         $delete = $db->delete_user($id);
         if ($delete) {

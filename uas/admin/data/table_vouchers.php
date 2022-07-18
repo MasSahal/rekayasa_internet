@@ -1,23 +1,12 @@
-<form action="../proses/ticket_proses.php?mod=delete" method="post" class="formhapus">
+<form action="../proses/voucher_proses.php?mod=delete" method="post" class="formhapus">
     <?php
-    include_once('../../model/ticket_model.php');
-    include_once('../../model/event_model.php');
-    $id = $_GET['id_event'] ?? 0;
-    $db = new ticket;
-    $db2 = new event;
-    if ($id == 0 or $id == "" or $id == NULL) {
-        $ticket = $db->get_ticket_actived();
-        $judul = "Menampilkan semua ticket event yang tersedia";
-    } else {
-        $ticket = $db->get_ticket_join_event($id);
-        $tic = $db2->get_event($id);
-        $judul = "Menampilkan ticket dari event $tic[nama_event]";
+    include_once('../../model/voucher_model.php');
+    $id = $_GET['id_voucher'] ?? 0;
+    $db = new voucher;
+    $voucher = $db->get_voucher();
     ?>
-        <button type="button" class="btn btn-primary btn-sm tambah" href="#table" role="button"><i class="ti-plus"></i> Tambah Data</button>
-        <button type="submit" class="btn btn-danger btn-sm tblhapus" href="#table" role="button"><i class="ti-trash"></i> Hapus Data</button>
-        <hr>
-    <?php }; ?>
-    <h4 class="text-center"><?= $judul; ?></h4>
+    <button type="button" class="btn btn-primary btn-sm tambah" href="#table" role="button"><i class="ti-plus"></i> Tambah Data</button>
+    <button type="submit" class="btn btn-danger btn-sm tblhapus" href="#table" role="button"><i class="ti-trash"></i> Hapus Data</button>
     <hr>
     <div class="table-responsive" id="view">
         <table class="table mb-0 dataTable">
@@ -32,12 +21,11 @@
                         </div>
                     </th>
                     <th>#</th>
-                    <th style="min-width:150px">Nama Event</th>
+                    <th style="min-width:100px">Nama Voucher</th>
+                    <th>Kode Voucher</th>
                     <th>Tanggal Expired</th>
-                    <th>Jenis Ticket</th>
-                    <th>Detail Ticket</th>
-                    <th>Jumlah Ticket</th>
-                    <th>Harga Ticket</th>
+                    <th>Jumlah Voucher</th>
+                    <th>Besaran Voucher</th>
                     <th>Tanggal Dibuat</th>
                     <th style="min-width:100px;">Aksi</th>
                 </tr>
@@ -46,16 +34,12 @@
                 <?php
                 //set default timezone
                 date_default_timezone_set("asia/jakarta");
-                // echo date("Y-m-d H:i:s", time());
-                // echo "<br>";
-                // echo time();
-                // echo "<br>";
-                foreach ($ticket as $i => $r) {
-                    if (strtotime($r['expired_ticket']) >= time()) {
-                        $expired = '<span class="badge badge-success" style="border-radius:4px">' . $db->tanggal($r['expired_ticket']) . " - Pukul : " . $db->clock($r['expired_ticket']) . '</span>';
+                foreach ($voucher as $i => $r) {
+                    if (strtotime($r['expired_voucher']) >= time()) {
+                        $expired = '<span class="badge badge-success" style="border-radius:4px">' . $db->tanggal($r['expired_voucher']) . " - Pukul : " . $db->clock($r['expired_voucher']) . '</span>';
                         $bg = "rgba(200, 255, 200, 0.3)";
                     } else {
-                        $expired = '<span class="badge badge-danger" style="border-radius:4px">' . $db->tanggal($r['expired_ticket']) . " - Pukul : " . $db->clock($r['expired_ticket']) . '</span>';
+                        $expired = '<span class="badge badge-danger" style="border-radius:4px">' . $db->tanggal($r['expired_voucher']) . " - Pukul : " . $db->clock($r['expired_voucher']) . '</span>';
                         $bg = "rgba(255, 200, 200, 0.3)";
                     }
                 ?>
@@ -63,26 +47,23 @@
                         <td>
                             <div class=" checkbox-fade fade-in-primary d-">
                                 <label>
-                                    <input type="checkbox" name="id[]" class="centangid" value="<?= $r['id_ticket']; ?>">
+                                    <input type="checkbox" name="id[]" class="centangid" value="<?= $r['id_voucher']; ?>">
                                     <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
                                 </label>
                             </div>
                         </td>
-                        <th><?= $i += 1; ?></th>
-                        <td>Ticket <?= strtoupper($r['jenis_ticket']) ?>
-                            <a href="data_events.php?detail=<?= $r['id_event']; ?>" class="font-weight-bold"><?= $r['nama_event']; ?></a>
-                        </td>
+                        <td><?= $i += 1; ?></td>
+                        <td><?= $r['nama_voucher']; ?></td>
+                        <td><?= $r['kode_voucher']; ?></td>
                         <td><?= $expired; ?></td>
-                        <td><b class="text-uppercase"><?= $r['jenis_ticket']; ?></b></td>
-                        <td><?= $r['detail_ticket']; ?></td>
-                        <td><?= number_format($r['jumlah_ticket']); ?> Ticket</td>
-                        <td>Rp<?= number_format($r['harga_ticket'], 2, ",", "."); ?></td>
-                        <td><?= $db->tanggal($r['created_ticket']); ?></td>
+                        <td><?= number_format($r['jumlah_voucher']); ?> voucher</td>
+                        <td><?= $r['jenis_voucher'] == 0 ? "Rp" . number_format($r['besaran_voucher']) : $r['besaran_voucher'] . "%"; ?></td>
+                        <td><?= $db->tanggal($r['created_voucher']); ?></td>
                         <td>
-                            <!-- <button class="btn btn-secondary text-black p-1" onclick="uri('data_tickets.php?detail=<?= $r['id_ticket']; ?>')" role="button"><i class="ti-eye"></i></button> -->
-                            <?php if ($r['jumlah_ticket'] != 0) { ?>
-                                <button type="button" class="btn btn-info text-black p-1" onclick="edit(<?= $r['id_ticket']; ?>)" role="button"><i class="ti-pencil"></i></button>
-                                <button type="button" class="btn btn-danger text-black p-1" onclick="hapus(<?= $r['id_ticket']; ?>,'<?= $r['nama_event']; ?>')" role="button"><i class="ti-trash"></i></button>
+                            <!-- <button class="btn btn-secondary text-black p-1" onclick="uri('data_vouchers.php?detail=<?= $r['id_voucher']; ?>')" role="button"><i class="ti-eye"></i></button> -->
+                            <?php if ($r['jumlah_voucher'] != 0) { ?>
+                                <button type="button" class="btn btn-info text-black p-1" onclick="edit(<?= $r['id_voucher']; ?>)" role="button"><i class="ti-pencil"></i></button>
+                                <button type="button" class="btn btn-danger text-black p-1" onclick="hapus(<?= $r['id_voucher']; ?>,'<?= $r['nama_voucher']; ?>')" role="button"><i class="ti-trash"></i></button>
                             <?php }; ?>
                         </td>
                     </tr>
@@ -92,9 +73,9 @@
     </div>
 </form>
 <div class="row d-none">
-    <?php foreach ($db->get_ticket() as $r) { ?>
+    <?php foreach ($db->get_voucher() as $r) { ?>
         <div class="col-md-12">
-            <div class="ticket">
+            <div class="voucher">
                 <div class="stub">
                     <div class="top">
                         <span class="admit">Admit</span>
@@ -146,10 +127,10 @@
         });
         $('.tambah').click(function() {
             $.ajax({
-                url: './form/add_ticket.php',
+                url: './form/add_voucher.php',
                 type: 'GET',
                 data: {
-                    id_event: <?= $id; ?>
+                    id_voucher: <?= $id; ?>
                 },
                 beforeSend: function() {
                     $('.viewmodal').html('<div class="preload"><div class="loader"></div></div>');
@@ -187,15 +168,18 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: '../proses/ticket_proses.php?mod=delete',
+                    url: '../proses/voucher_proses.php?mod=delete',
                     type: 'POST',
                     data: {
                         id: id
                     },
                     dataType: 'JSON',
                     success: function(response) {
+                        console.log(response);
+                        console.log(response.message);
                         Swal.fire({
-                            title: 'Data Berhasil dihapus!',
+                            title: 'Selamat!',
+                            text: response.message,
                             icon: 'success',
                             showConfirmButton: false,
                             timer: 2000
@@ -222,7 +206,7 @@
     function edit(id) {
         // alert(id);
         $.ajax({
-            url: './form/upd_ticket.php',
+            url: './form/upd_voucher.php',
             type: 'GET',
             data: {
                 id: id

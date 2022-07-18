@@ -7,9 +7,18 @@ class ticket extends database
     function get_ticket($id = false)
     {
         if ($id) {
-            return mysqli_fetch_assoc(mysqli_query($this->koneksi, "SELECT * FROM data_tickets WHERE id_ticket = '$id' LIMIT 1"));
+            return mysqli_fetch_assoc(mysqli_query($this->koneksi, "SELECT * FROM data_tickets JOIN data_event ON data_tickets.id_event = data_event.id_event WHERE id_ticket = '$id' LIMIT 1"));
         } else {
-            return mysqli_query($this->koneksi, "SELECT * FROM data_tickets");
+            return mysqli_query($this->koneksi, "SELECT * FROM data_tickets JOIN data_event ON data_tickets.id_event = data_event.id_event");
+        }
+    }
+
+    function get_my_ticket($id_user, $id = false)
+    {
+        if ($id) {
+            return mysqli_fetch_assoc(mysqli_query($this->koneksi, "SELECT * FROM data_tickets JOIN data_event ON data_tickets.id_event = data_event.id_event WHERE id_ticket = '$id' LIMIT 1  AND id_user = '$id_user'"));
+        } else {
+            return mysqli_query($this->koneksi, "SELECT * FROM data_tickets JOIN data_event ON data_tickets.id_event = data_event.id_event");
         }
     }
 
@@ -24,9 +33,18 @@ class ticket extends database
         }
     }
 
-    function get_ticket_actived()
+    function cari_ticket($cari)
     {
-        $query = "SELECT * FROM data_tickets JOIN data_event ON data_tickets.id_event = data_event.id_event WHERE data_tickets.expired_ticket >= CURDATE() AND data_tickets.jumlah_ticket > 0";
+        return mysqli_query($this->koneksi, "SELECT * FROM data_tickets JOIN data_event ON data_tickets.id_event = data_event.id_event WHERE nama_event LIKE '%$cari%' OR detail_ticket LIKE '%$cari%' OR tanggal_ticket LIKE '%$cari%' OR lokasi_ticket LIKE '%$cari%'");
+    }
+    function get_ticket_actived($id = false)
+    {
+        if ($id) {
+            $query = "SELECT * FROM data_tickets JOIN data_event ON data_tickets.id_event = data_event.id_event WHERE data_event.id_event = '$id'";
+        } else {
+
+            $query = "SELECT * FROM data_tickets JOIN data_event ON data_tickets.id_event = data_event.id_event WHERE data_tickets.expired_ticket >= CURDATE() AND data_tickets.jumlah_ticket > 0";
+        }
         return mysqli_query($this->koneksi, $query);
     }
 
@@ -44,7 +62,17 @@ class ticket extends database
 
     function delete_ticket($id)
     {
-        $query = "DELETE FROM data_tickets WHERE id_ticket = '$id'";
+        if (is_array($id)) {
+            $query = "DELETE FROM data_tickets WHERE id_ticket IN (" . implode(',', $id) . ")";
+        } else {
+            $query = "DELETE FROM data_tickets WHERE id_ticket = '$id'";
+        }
+        return mysqli_query($this->koneksi, $query);
+    }
+
+    function update_ticket_qty($id_ticket, $jumlah_ticket)
+    {
+        $query = "UPDATE data_tickets SET jumlah_ticket = '$jumlah_ticket' WHERE id_ticket = '$id_ticket'";
         return mysqli_query($this->koneksi, $query);
     }
 }

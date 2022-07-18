@@ -13,6 +13,11 @@ class event extends database
         }
     }
 
+    function cari_event($cari)
+    {
+        return mysqli_query($this->koneksi, "SELECT * FROM data_event WHERE nama_event LIKE '%$cari%' OR detail_event LIKE '%$cari%' OR tanggal_event LIKE '%$cari%' OR lokasi_event LIKE '%$cari%'");
+    }
+
     function insert_event($nama_event, $detail_event, $banner_event, $tanggal_event, $jam_event, $lokasi_event, $gmap_event)
     {
         $query = "INSERT INTO data_event (nama_event, detail_event, banner_event, tanggal_event, jam_event, lokasi_event, gmap_event) VALUES ('$nama_event', '$detail_event', '$banner_event', '$tanggal_event', '$jam_event', '$lokasi_event', '$gmap_event')";
@@ -27,7 +32,11 @@ class event extends database
 
     function delete_event($id)
     {
-        $query = "DELETE FROM data_event WHERE id_event = '$id'";
+        if (is_array($id)) {
+            $query = " DELETE FROM data_event WHERE id_event IN (" . implode(',', $id) . ")";
+        } else {
+            $query = "DELETE FROM data_event WHERE id_event = '$id'";
+        }
         return mysqli_query($this->koneksi, $query);
     }
 }

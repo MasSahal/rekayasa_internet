@@ -9,7 +9,7 @@
 <body>
 
     <?php
-    // include('./layout/loader.php');
+    include('./layout/loader.php');
     include('../model/event_model.php');
     $db = new event; ?>
     <div id="pcoded" class="pcoded">
@@ -106,7 +106,7 @@
     <script>
         function listdata() {
             $.ajax({
-                url: './data/table_event.php',
+                url: './data/table_events.php',
                 type: 'GET',
                 success: function(data) {
                     $('.viewtabel').html(data);

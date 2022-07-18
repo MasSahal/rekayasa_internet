@@ -1,10 +1,10 @@
-<div class="table-responsive">
+<form action="../proses/event_proses.php?mod=delete" class="formhapus" method="post" accept-charset="utf-8">
     <?php
     include('../../model/event_model.php');
     $db = new event()
     ?>
-    <a name="" id="" class="btn btn-primary btn-sm tambah" href="#" role="button"><i class="ti-plus"></i> Tambah Data</a>
-    <a name="" id="" class="btn btn-danger btn-sm" href="#" role="button"><i class="ti-trash"></i> Hapus Data</a>
+    <button type="button" class="btn btn-primary btn-sm tambah" role="button"><i class="ti-plus"></i> Tambah Data</button>
+    <button type="submit" class="btn btn-danger btn-sm tblhapus" role="button"><i class="ti-trash"></i> Hapus Data</button>
     <hr>
     <div class="table-responsive">
         <table class="table mb-0 dataTable">
@@ -13,7 +13,7 @@
                     <th>
                         <div class="checkbox-fade fade-in-primary">
                             <label>
-                                <input type="checkbox" id="centangSemua" class="centangid">
+                                <input type="checkbox" id="centangSemua">
                                 <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
                             </label>
                         </div>
@@ -48,9 +48,9 @@
                         <td><?= $r['lokasi_event']; ?></td>
                         <td><?= $r['detail_event']; ?></td>
                         <td>
-                            <button class="btn btn-secondary text-black p-1" onclick="uri('data_events.php?detail=<?= $r['id_event']; ?>')" role="button"><i class="ti-eye"></i></button>
-                            <button class="btn btn-info text-black p-1" onclick="edit(<?= $r['id_event']; ?>)" role="button"><i class="ti-pencil"></i></button>
-                            <button class="btn btn-danger text-black p-1" onclick="hapus(<?= $r['id_event']; ?>,'<?= $r['nama_event']; ?>')" role="button"><i class="ti-trash"></i></button>
+                            <button type="button" class="btn btn-secondary text-black p-1" onclick="uri('data_events.php?detail=<?= $r['id_event']; ?>')" role="button"><i class="ti-eye"></i></button>
+                            <button type="button" class="btn btn-info text-black p-1" onclick="edit(<?= $r['id_event']; ?>)" role="button"><i class="ti-pencil"></i></button>
+                            <button type="button" class="btn btn-danger text-black p-1" onclick="hapus(<?= $r['id_event']; ?>,'<?= $r['nama_event']; ?>')" role="button"><i class="ti-trash"></i></button>
                         </td>
                     </tr>
                 <?php }; ?>
@@ -144,5 +144,69 @@
                 }
             })
         }
+
+        $('.formhapus').submit(function(e) {
+            e.preventDefault();
+            let jmldata = $('.centangid:checked');
+            console.log(jmldata.length);
+            if (jmldata.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Ooops!',
+                    text: 'Silahkan pilih data!',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            } else {
+                Swal.fire({
+                    title: `Apakah anda yakin ingin menghapus ${jmldata.length} data ini?`,
+                    text: 'Semua data yang terpilih akan terhapus!',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            type: "post",
+                            url: $(this).attr('action'),
+                            data: $(this).serialize(),
+                            dataType: "json",
+                            beforeSend: function() {
+                                $('.tblhapus').attr('disable', 'disable');
+                                $('.tblhapus').html('<span class="spinner-border spinner-grow-sm"></span> <i>Loading...</i>');
+                            },
+                            complete: function() {
+                                $('.tblhapus').removeAttr('disable', 'disable');
+                                $('.tblhapus').html('<i class="ti-trash"></i> Hapus Data');
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Selamat!',
+                                    text: 'Sebanyak ' + jmldata.length + ' data berhasil dihapus!',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                }).then(function() {
+                                    listdata();
+                                })
+                            },
+                            error: function(xhr, ajaxOptions, thrownerror) {
+                                Swal.fire({
+                                    title: "Maaf gagal hapus data!",
+                                    html: `Silahkan Cek kembali Kode Error: <strong>${(xhr.status + "\n")}</strong> `,
+                                    icon: "error",
+                                    showConfirmButton: false,
+                                    timer: 3100
+                                }).then(function() {
+                                    window.location = '';
+                                })
+                            }
+                        });
+                    }
+                })
+            }
+        });
     </script>
-</div>
+</form>
